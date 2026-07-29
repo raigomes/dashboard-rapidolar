@@ -1,0 +1,6 @@
+{
+  "model": "deepseek-v4",
+  "fallback": "opencode-zen",
+  "temperature": 0.3,
+  "max_tokens": 8192
+}
