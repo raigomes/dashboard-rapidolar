@@ -8,23 +8,25 @@
 ## Phase -1 — Design System (Pencil.dev)
 
 ### Task D.1: Layout Prototyping
+
 - **Dependencies:** Nenhuma
 - **Agent:** Designer
-- **Files affected:** `docs/DESIGN_SYSTEM.md`
+- **Files affected:** `docs/DESIGN_SYSTEM.md` e `docs/layout/dashboard.pen`
 - **Acceptance criteria:**
   - Layout de todas as páginas definido no Pencil.dev
   - Paleta de cores, tipografia, espaçamentos documentados
   - Componentes UI mapeados (cards, tabelas, forms, modals)
   - Responsividade definida (desktop, tablet, mobile)
-  - Exportado para `docs/DESIGN_SYSTEM.md`
+  - Exportado para `docs/DESIGN_SYSTEM.md` e `docs/layout/dashboard.pen`
 - **Description:**
-  Designer consome o PRD.md, cria wireframes e high-fidelity layouts no Pencil.dev para: login, dashboard (com métricas, gráfico, tabelas), produtos (tabela + CRUD), clientes (tabela + CRUD), pedidos (tabela + filtros + form com itens), relatórios (PDF export). Exporta especificação visual para DESIGN_SYSTEM.md.
+  Designer consome o PRD.md, cria wireframes e high-fidelity layouts no Pencil.dev (`docs/layout/dashboard.pen`) para: login, dashboard (com métricas, gráfico, tabelas), produtos (tabela + CRUD), clientes (tabela + CRUD), pedidos (tabela + filtros + form com itens), relatórios (PDF export). Exporta especificação visual para DESIGN_SYSTEM.md.
 
 ---
 
 ## Phase 0 — Setup & Foundation
 
 ### Task 0.1: Initialize Dependencies
+
 - **Dependencies:** Nenhuma
 - **Files affected:** `package.json`, `tsconfig.json`
 - **Acceptance criteria:**
@@ -35,6 +37,7 @@
   Instalar dependências necessárias: `@supabase/supabase-js`, `@supabase/ssr`, `recharts`, `shadcn/ui` (configure com `npx shadcn@latest init`), `lucide-react`, `sonner` (toast), `@react-pdf/renderer` (PDF). Garantir que `tailwindcss` v4 e `@tailwindcss/postcss` estão configurados. Verificar que `postcss.config.mjs` usa `@tailwindcss/postcss`.
 
 ### Task 0.2: Configure Supabase Client
+
 - **Dependencies:** T0.1
 - **Files affected:** `src/lib/supabase/client.ts`, `src/lib/supabase/server.ts`, `src/lib/supabase/middleware.ts`, `.env.local`
 - **Acceptance criteria:**
@@ -46,6 +49,7 @@
   Seguir padrão do `@supabase/ssr` para Next.js App Router. Criar três módulos: `client.ts` (uso em browser), `server.ts` (uso em Server Components / Server Actions), `middleware.ts` (para refresh de sessão). Tipar o `Database` usando `supabase gen types`.
 
 ### Task 0.3: SQL Migration — Schema & RLS
+
 - **Dependencies:** T0.2
 - **Files affected:** `supabase/migrations/001_initial.sql` (ou script SQL inline)
 - **Acceptance criteria:**
@@ -59,6 +63,7 @@
   Escrever migration SQL com CREATE TABLE, índices, RLS policies e trigger de profile. Executar via Supabase Dashboard ou `supabase migration up`. Garantir que as policies cobrem admin (tudo) e vendedor (apenas seus pedidos, apenas SELECT em produtos/clientes).
 
 ### Task 0.4: Seed Script — 6 Months of Data
+
 - **Dependencies:** T0.3
 - **Files affected:** `scripts/seed.ts`, `package.json` (add script)
 - **Acceptance criteria:**
@@ -73,6 +78,7 @@
   Criar script TypeScript executado com `tsx scripts/seed.ts`. Usar `@supabase/supabase-js` com `service_role` key para bypass de RLS. Usar `@faker-js/faker` ou geração manual com arrays de nomes brasileiros. Distribuir datas aleatórias nos últimos 180 dias.
 
 ### Task 0.5: Shadcn/UI Components Setup
+
 - **Dependencies:** T0.1
 - **Files affected:** `src/components/ui/*` (gerado pelo shadcn)
 - **Acceptance criteria:**
@@ -85,6 +91,7 @@
 ---
 
 ### 🔍 Reviewer Validation — Phase 0
+
 - **Dependencies:** All tasks in Phase 0
 - **Agent:** Reviewer
 - **Checks:**
@@ -98,6 +105,7 @@
 ## Phase 1 — Auth & Layout Shell
 
 ### Task 1.1: Auth Middleware & Session Management
+
 - **Dependencies:** T0.2
 - **Files affected:** `src/middleware.ts`, `src/lib/supabase/middleware.ts`
 - **Acceptance criteria:**
@@ -110,6 +118,7 @@
   Implementar `src/middleware.ts` usando o padrão `@supabase/ssr`. Criar `src/lib/supabase/middleware.ts` com `createMiddlewareClient`. Matcher no middleware para excluir `_next/static`, `_next/image`, `favicon.ico`. Usar `updateSession` para refresh automático.
 
 ### Task 1.2: Login Page
+
 - **Dependencies:** T1.1, T0.5
 - **Files affected:** `src/app/login/page.tsx`, `src/app/login/layout.tsx`, `src/app/auth/confirm/route.ts`
 - **Acceptance criteria:**
@@ -124,6 +133,7 @@
   Implementar com `signInWithPassword` do Supabase. Usar `sonner` para toast de erro. Layout da página de login é minimalista, sem o shell principal. Usar componentes shadcn `Button`, `Input`, `Card`.
 
 ### Task 1.3: App Shell — Sidebar + Header + Layout
+
 - **Dependencies:** T1.2, T0.5
 - **Files affected:** `src/app/(dashboard)/layout.tsx`, `src/components/layout/sidebar.tsx`, `src/components/layout/header.tsx`, `src/components/layout/user-nav.tsx`
 - **Acceptance criteria:**
@@ -139,6 +149,7 @@
   Criar grupo `(dashboard)` no App Router. Sidebar com `Lucide` icons. Estado "active" baseado no pathname (`usePathname()`). Logout via `signOut()` do Supabase + redirect. Usar `Sheet` do shadcn para sidebar mobile overlay. Header com `DropdownMenu` para perfil/logout.
 
 ### Task 1.4: Profile Page (Self-Service)
+
 - **Dependencies:** T1.3
 - **Files affected:** `src/app/(dashboard)/perfil/page.tsx`
 - **Acceptance criteria:**
@@ -151,6 +162,7 @@
 ---
 
 ### 🔍 Reviewer Validation — Phase 1
+
 - **Dependencies:** All tasks in Phase 1
 - **Agent:** Reviewer
 - **Checks:**
@@ -164,6 +176,7 @@
 ## Phase 2 — Dashboard
 
 ### Task 2.1: Metric Cards Component
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/metric-cards.tsx`
 - **Acceptance criteria:**
@@ -173,9 +186,10 @@
   - Skeleton enquanto carrega
   - Busca dados via Server Component (query agregada no Supabase)
 - **Description:**
-  Componente Client Component (para animação/entrada de dados). Recebe dados por props de um Server Component pai. Formatação de moeda com `Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`. Variação calculada: ((atual - anterior) / anterior) * 100.
+  Componente Client Component (para animação/entrada de dados). Recebe dados por props de um Server Component pai. Formatação de moeda com `Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`. Variação calculada: ((atual - anterior) / anterior) \* 100.
 
 ### Task 2.2: Sales Chart with Period Selector
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/sales-chart.tsx`, `src/components/dashboard/period-selector.tsx`
 - **Acceptance criteria:**
@@ -190,6 +204,7 @@
   Agrupar pedidos por data (7d/30d agrupamento diário; 12m agrupamento mensal). Recharts `ResponsiveContainer`, `LineChart`, `Line`, `XAxis`, `YAxis`, `Tooltip`, `CartesianGrid`. Dados passados por props. Seletor controla estado no Client Component e faz fetch via Server Action ou query param.
 
 ### Task 2.3: Top 10 Products Table
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/top-products.tsx`
 - **Acceptance criteria:**
@@ -202,6 +217,7 @@
   Query SQL: `SELECT p.nome, p.categoria, SUM(pi.qtd) as qtd_vendida, SUM(pi.qtd * pi.preco_unit) as receita FROM pedido_itens pi JOIN produtos p ON p.id = pi.produto_id GROUP BY p.id ORDER BY receita DESC LIMIT 10`. Usar shadcn `Table`.
 
 ### Task 2.4: Top 10 Clients Table
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/top-clients.tsx`
 - **Acceptance criteria:**
@@ -212,6 +228,7 @@
   Query SQL: `SELECT c.nome, c.telefone, SUM(ped.total) as total_compras, COUNT(ped.id) as qtd_pedidos FROM pedidos ped JOIN clientes c ON c.id = ped.cliente_id GROUP BY c.id ORDER BY total_compras DESC LIMIT 10`. Usar shadcn `Table`.
 
 ### Task 2.5: Dashboard Page Assembly
+
 - **Dependencies:** T2.1, T2.2, T2.3, T2.4
 - **Files affected:** `src/app/(dashboard)/dashboard/page.tsx`
 - **Acceptance criteria:**
@@ -228,6 +245,7 @@
 ---
 
 ### 🔍 Reviewer Validation — Phase 2
+
 - **Dependencies:** All tasks in Phase 2
 - **Agent:** Reviewer
 - **Checks:**
@@ -241,6 +259,7 @@
 ## Phase 3 — CRUD Modules
 
 ### Task 3.1: Products CRUD
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:**
   - `src/app/(dashboard)/produtos/page.tsx`
@@ -261,6 +280,7 @@
   Implementar CRUD completo. Server Action verifica `cargo` do usuário logado antes de mutar. Formulário usa `react-hook-form` + `zod` para validação (shadcn form pattern). Modal é `Dialog` do shadcn. Tabela com `Table`. Categoria como `Select`. Tudo tipado com TypeScript strict.
 
 ### Task 3.2: Clients CRUD
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:**
   - `src/app/(dashboard)/clientes/page.tsx`
@@ -279,6 +299,7 @@
   CRUD de clientes. Feature similar ao de produtos. Input de telefone pode usar `pattern` regex (`^\(\d{2}\) \d{4,5}-\d{4}$`) ou lib de mask (InputMask ou implementação simples). Server Actions com role check.
 
 ### Task 3.3: Orders List with Filters
+
 - **Dependencies:** T1.3, T0.5, T3.1, T3.2
 - **Files affected:**
   - `src/app/(dashboard)/pedidos/page.tsx`
@@ -299,6 +320,7 @@
   Lista com filtros usando `useSearchParams` para estado. Server Component lê search params e monta query Supabase com filtros. Paginação com `range()` no Supabase (offset + limit). Badge de status usando `cva` ou variantes do shadcn `Badge`.
 
 ### Task 3.4: Order Form (Create/Edit with Items)
+
 - **Dependencies:** T3.3, T3.1, T3.2
 - **Files affected:**
   - `src/components/pedidos/pedido-form.tsx`
@@ -321,6 +343,7 @@
   Componente complexo com estado dinâmico de array de itens. Usar `useFieldArray` do `react-hook-form` ou estado local com `useReducer`. Select de produto com busca (combo box). Preço unitário vem do produto mas é editável. Server Action usa `upsert` para edição (exclui itens antigos e reinsere).
 
 ### Task 3.5: Search & Quick Filter for Products/Clients
+
 - **Dependencies:** T3.1, T3.2
 - **Files affected:** `src/components/produtos/produtos-search.tsx`, `src/components/clientes/clientes-search.tsx`
 - **Acceptance criteria:**
@@ -334,6 +357,7 @@
 ---
 
 ### 🔍 Reviewer Validation — Phase 3
+
 - **Dependencies:** All tasks in Phase 3
 - **Agent:** Reviewer
 - **Checks:**
@@ -347,6 +371,7 @@
 ## Phase 4 — Reports & Polish
 
 ### Task 4.1: Reports Page with PDF Export
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:**
   - `src/app/(dashboard)/relatorios/page.tsx`
@@ -364,6 +389,7 @@
   Usar `@react-pdf/renderer` (renderização no cliente) ou `html2canvas` + `jsPDF`. Para `@react-pdf/renderer`: criar documento PDF com `Document`, `Page`, `View`, `Text`, `Table` (biblioteca ou manual). Para alternatives: Server-side com `puppeteer` ou `wkhtmltopdf`. A rota deve verificar `cargo === 'admin'` via Server Component.
 
 ### Task 4.2: Error & Loading States
+
 - **Dependencies:** T1.3, T2.5, T3.1, T3.2, T3.3
 - **Files affected:**
   - `src/app/not-found.tsx` (404 global)
@@ -381,6 +407,7 @@
   Criar arquivos `loading.tsx` e `error.tsx` para cada rota que precisa. Loading exibe skeletons compatíveis com o layout da página. Error page captura exceções e oferece "Tentar novamente" (botão que chama `reset()`).
 
 ### Task 4.3: Responsive & Mobile Adjustments
+
 - **Dependencies:** T2.5, T3.1, T3.2, T3.3, T4.1
 - **Files affected:**
   - `src/components/layout/sidebar.tsx` (overlay em mobile)
@@ -401,6 +428,7 @@
   Testar em viewports 375px, 768px, 1024px, 1440px. Ajustar classes Tailwind com breakpoints `sm:`, `md:`, `lg:`. Sidebar usa `Sheet` do shadcn para mobile. Tabelas ganham `min-w-[600px]` e wrapper com overflow. Modais do shadcn já são responsivos por padrão — ajustar `DialogContent` para mobile.
 
 ### Task 4.4: Toast Notifications & UX Polish
+
 - **Dependencies:** T3.1, T3.2, T3.4
 - **Files affected:** `src/components/ui/sonner.tsx`, `src/app/(dashboard)/layout.tsx`
 - **Acceptance criteria:**
@@ -414,6 +442,7 @@
   Adicionar `<Toaster />` do `sonner` no layout raiz. Em cada Server Action, retornar `{ success: true, message: "..." }` ou `{ error: "..." }`. No Client Component, chamar `toast.success()` ou `toast.error()` com base no retorno.
 
 ### Task 4.5: Final TypeScript & Lint Pass
+
 - **Dependencies:** T0.1 a T4.4 (tudo)
 - **Files affected:** Todos os arquivos `.ts` e `.tsx`
 - **Acceptance criteria:**
@@ -428,6 +457,7 @@
 ---
 
 ### 🔍 Reviewer Validation — Phase 4
+
 - **Dependencies:** All tasks in Phase 4
 - **Agent:** Reviewer
 - **Checks:**
