@@ -5,21 +5,33 @@
 
 ---
 
-## Phase -1 — Design System (Pencil.dev)
+## Phase -1 — Design System (Pencil.dev) ✅
 
-### Task D.1: Layout Prototyping
+### Task D.1: Layout Prototyping ✅
 
+- **Status:** Concluída
+- **Agent:** Designer (Impeccable + Pencil.dev)
+- **Files affected:** `docs/DESIGN_SYSTEM.md`, `docs/layout/dashboard.pen`
 - **Dependencies:** Nenhuma
-- **Agent:** Designer
-- **Files affected:** `docs/DESIGN_SYSTEM.md` e `docs/layout/dashboard.pen`
+- **Deliverables:**
+  - ✅ `docs/DESIGN_SYSTEM.md` — 12 seções, ~1.450 linhas
+    - Cobre: paleta de cores (brand, neutros, semânticos), tipografia (Inter, scale completa), espaçamento (Tailwind v4 scale), wireframes de 6 páginas (login, dashboard, produtos, clientes, pedidos, relatorios), tokens de componentes (cards, tables, buttons, badges, forms, modals, sidebar, header, charts, skeleton, pagination), responsividade (desktop/tablet/mobile com breakpoints), mapeamento de ícones (Lucide, 30+ ícones), empty states, error states, motion guidelines, acessibilidade (WCAG AA), estrutura de arquivos, hierarquia de componentes
+  - ✅ `docs/layout/dashboard.pen` — Protótipo Pencil.dev v2.14 com 6 páginas:
+    - Login: 14 elementos (card, inputs, botão)
+    - Dashboard: 97 elementos (sidebar, header, 4 metric cards, chart com grade, top tables)
+    - Produtos: 100 elementos (tabela com 8 linhas, busca, modal CRUD)
+    - Clientes: 78 elementos (tabela com 5 linhas, busca, modal CRUD)
+    - Pedidos: 102 elementos (filtros, tabela com 7 linhas + badges de status)
+    - Relatórios: 50 elementos (período, botões, preview com dados)
 - **Acceptance criteria:**
-  - Layout de todas as páginas definido no Pencil.dev
-  - Paleta de cores, tipografia, espaçamentos documentados
-  - Componentes UI mapeados (cards, tabelas, forms, modals)
-  - Responsividade definida (desktop, tablet, mobile)
-  - Exportado para `docs/DESIGN_SYSTEM.md` e `docs/layout/dashboard.pen`
-- **Description:**
-  Designer consome o PRD.md, cria wireframes e high-fidelity layouts no Pencil.dev (`docs/layout/dashboard.pen`) para: login, dashboard (com métricas, gráfico, tabelas), produtos (tabela + CRUD), clientes (tabela + CRUD), pedidos (tabela + filtros + form com itens), relatórios (PDF export). Exporta especificação visual para DESIGN_SYSTEM.md.
+  - ✅ Layout de todas as páginas definido com wireframes detalhados (ASCII + Pencil.dev)
+  - ✅ Paleta de cores, tipografia, espaçamentos documentados
+  - ✅ Componentes UI mapeados com tokens e estados
+  - ✅ Responsividade definida com breakpoints e comportamentos por viewport
+  - ✅ Protótipo Pencil.dev exportado para `docs/layout/dashboard.pen`
+  - ✅ Icon mapping completo (Lucide, 31 ícones mapeados)
+  - ✅ Motion guidelines, acessibilidade, file structure documentados
+- **Notas:** Pencil.dev MCP tools não estavam autenticados — protótipo foi gerado manualmente no formato Pencil.dev v2.14 via script Python. O DESIGN_SYSTEM.md é a fonte única de verdade visual para o Coder.
 
 ---
 
@@ -177,6 +189,8 @@
 
 ### Task 2.1: Metric Cards Component
 
+> **Decisão do Owner (2026-07-31):** F-07 alinhado a 4 cards (faturamento hoje, faturamento do mês, pedidos hoje, ticket médio). "Clientes ativos" e "pedidos (mês)" descopados — removidos do PRD F-07. Protótipo `dashboard.pen` e `DESIGN_SYSTEM.md` são a fonte de verdade.
+
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/metric-cards.tsx`
 - **Acceptance criteria:**
@@ -208,10 +222,9 @@
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/top-products.tsx`
 - **Acceptance criteria:**
-  - Tabela com 10 linhas: #| Produto | Categoria | Qtd Vendida | Receita Total
+  - Tabela com 10 linhas: #| Produto | Qtd Vendida | Receita Total (sem coluna "Categoria" — alinhado ao PRD F-09 e protótipo)
   - Ordenado por receita total decrescente
   - Formatação de moeda na coluna receita
-  - Badge de categoria
   - Scroll em telas menores
 - **Description:**
   Query SQL: `SELECT p.nome, p.categoria, SUM(pi.qtd) as qtd_vendida, SUM(pi.qtd * pi.preco_unit) as receita FROM pedido_itens pi JOIN produtos p ON p.id = pi.produto_id GROUP BY p.id ORDER BY receita DESC LIMIT 10`. Usar shadcn `Table`.

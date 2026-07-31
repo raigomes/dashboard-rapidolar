@@ -57,7 +57,7 @@ A RapidoLar gerencia pedidos, estoque e financeiro em planilhas Excel compartilh
 
 | ID   | Requisito                                                                                           | Prioridade |
 | ---- | --------------------------------------------------------------------------------------------------- | ---------- |
-| F-07 | Cards de métricas: faturamento (dia/mês), total de pedidos (dia/mês), clientes ativos, ticket médio | P0         |
+| F-07 | Cards de métricas (4): faturamento hoje, faturamento do mês, pedidos hoje, ticket médio do mês — com variação percentual vs período anterior | P0         |
 | F-08 | Gráfico de vendas (linha) com seletor: 7 dias, 30 dias, 12 meses                                    | P0         |
 | F-09 | Tabela "Top 10 Produtos" (nome, qtd vendida, receita)                                               | P0         |
 | F-10 | Tabela "Top 10 Clientes" (nome, total compras, nº pedidos)                                          | P0         |
