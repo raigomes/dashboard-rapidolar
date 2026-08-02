@@ -28,15 +28,16 @@ async function sumTotal(
 ): Promise<number> {
   const query = supabase
     .from("pedidos")
-    .select("soma:sum(total)")
-    .in("status", STATUS_FATURAMENTO);
+    .select("total")
+    .in("status", STATUS_FATURAMENTO)
+    .limit(10000);
   const filtered =
     "eq" in filter
       ? query.eq("data", filter.eq)
       : query.gte("data", filter.gte).lte("data", filter.lte);
   const { data } = await filtered;
-  const soma = data?.[0]?.soma;
-  return soma == null ? 0 : Number(soma);
+  const linhas = (data ?? []) as unknown as { total: string | number }[];
+  return linhas.reduce((acc, row) => acc + Number(row.total), 0);
 }
 
 async function countPedidos(

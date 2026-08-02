@@ -69,17 +69,17 @@ async function fetchDaily(period: "7d" | "30d"): Promise<SalesPoint[]> {
 
   const { data } = await supabase
     .from("pedidos")
-    .select("data, receita:sum(total)")
+    .select("data, total")
     .in("status", ["confirmado", "entregue"])
     .gte("data", toISODate(start))
-    .order("data", { ascending: true });
+    .limit(10000);
 
   const byDate = new Map<string, number>();
   for (const row of (data ?? []) as unknown as {
     data: string;
-    receita: string | null;
+    total: string | number;
   }[]) {
-    byDate.set(row.data, Number(row.receita ?? 0));
+    byDate.set(row.data, (byDate.get(row.data) ?? 0) + Number(row.total));
   }
 
   const points: SalesPoint[] = [];
@@ -99,7 +99,9 @@ async function fetchMonthly(): Promise<SalesPoint[]> {
     .from("pedidos")
     .select("data, total")
     .in("status", ["confirmado", "entregue"])
-    .gte("data", toISODate(start));
+    .gte("data", toISODate(start))
+    .lte("data", toISODate(today))
+    .limit(10000);
 
   const byMonth = new Map<string, number>();
   for (const row of (data ?? []) as { data: string; total: string | number }[]) {
