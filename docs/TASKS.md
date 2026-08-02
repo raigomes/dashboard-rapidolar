@@ -142,10 +142,12 @@
 ## Phase 1 — Auth & Layout Shell (F-01 a F-06)
 
 > **Mapa PRD:** T1.1 → F-03/F-06; T1.2 → F-01/F-02; T1.3 → F-04/F-05 (shell + logout); T1.4 → F-05 (perfil/controle por cargo). T0.5 (shadcn) bloqueia T1.2/T1.3.
+>
+> **Estado (2026-08-02):** ✅ Phase 1 completa — T1.1, T1.2, T1.3 e T1.4 concluídas; validação Reviewer APROVADA (commit `849f7f5`). Phase 2 (dashboard) destravada, aguardando comando do usuário.
 
-### Task 1.1: Auth Middleware & Session Management
+### Task 1.1: Auth Middleware & Session Management ✅
 
-- **Status:** ⏳ Pendente
+- **Status:** ✅ Concluída (2026-08-02)
 - **Agent:** Coder
 - **Dependencies:** T0.2
 - **Files affected:** `src/middleware.ts`, `src/utils/supabase/middleware.ts` (já existe `createClient` — criar `updateSession` no topo)
@@ -158,9 +160,9 @@
 - **Description:**
   Implementar `src/middleware.ts` usando o padrão `@supabase/ssr`. Criar `src/lib/supabase/middleware.ts` com `createMiddlewareClient`. Matcher no middleware para excluir `_next/static`, `_next/image`, `favicon.ico`. Usar `updateSession` para refresh automático.
 
-### Task 1.2: Login Page
+### Task 1.2: Login Page ✅
 
-- **Status:** ⏳ Pendente
+- **Status:** ✅ Concluída (2026-08-02)
 - **Agent:** Coder
 - **Dependencies:** T1.1, T0.5
 - **Files affected:** `src/app/login/page.tsx`, `src/app/login/layout.tsx`, `src/app/auth/confirm/route.ts`
@@ -175,10 +177,10 @@
 - **Description:**
   Implementar com `signInWithPassword` do Supabase. Usar `sonner` para toast de erro. Layout da página de login é minimalista, sem o shell principal. Usar componentes shadcn `Button`, `Input`, `Card`.
 
-### Task 1.3: App Shell — Sidebar + Header + Layout
+### Task 1.3: App Shell — Sidebar + Header + Layout ✅
 
-- **Status:** ⏳ Pendente
-- **Agent:** Coder (Designer confirma cobertura do layout na delegação atual)
+- **Status:** ✅ Concluída (2026-08-02) — cobertura do layout confirmada pelo Designer
+- **Agent:** Coder
 - **Dependencies:** T1.2, T0.5
 - **Files affected:** `src/app/(dashboard)/layout.tsx`, `src/components/layout/sidebar.tsx`, `src/components/layout/header.tsx`, `src/components/layout/user-nav.tsx`
 - **Acceptance criteria:**
@@ -193,9 +195,9 @@
 - **Description:**
   Criar grupo `(dashboard)` no App Router. Sidebar com `Lucide` icons. Estado "active" baseado no pathname (`usePathname()`). Logout via `signOut()` do Supabase + redirect. Usar `Sheet` do shadcn para sidebar mobile overlay. Header com `DropdownMenu` para perfil/logout.
 
-### Task 1.4: Profile Page (Self-Service)
+### Task 1.4: Profile Page (Self-Service) ✅
 
-- **Status:** ⏳ Pendente (P2 — pode ser simplificada/adiada)
+- **Status:** ✅ Concluída (2026-08-02)
 - **Agent:** Coder
 - **Dependencies:** T1.3
 - **Files affected:** `src/app/(dashboard)/perfil/page.tsx`
@@ -208,15 +210,15 @@
 
 ---
 
-### 🔍 Reviewer Validation — Phase 1
+### 🔍 Reviewer Validation — Phase 1 ✅
 
-- **Dependencies:** All tasks in Phase 1
+- **Dependencies:** All tasks in Phase 1 — executada em 2026-08-02, veredito **APROVADO**
 - **Agent:** Reviewer
 - **Checks:**
-  - `npx tsc --noEmit` passes
-  - `npm run lint` passes
-  - Layout matches `DESIGN_SYSTEM.md` (visual comparison)
-- **On failure:** Log to `docs/failures/phase-1.md`
+  - [x] `npx tsc --noEmit` passes
+  - [x] `npm run lint` passes
+  - [x] Layout matches `DESIGN_SYSTEM.md` (visual comparison)
+- **On failure:** Log to `docs/failures/phase-1.md` — 2 desvios leves corrigidos em fast-follow; nits corrigidos (UserIcon, aria-current, border-destructive, gap-8); 2 aceitos p/ MVP. Nenhuma falha crítica.
 
 ---
 
