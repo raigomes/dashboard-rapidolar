@@ -418,6 +418,8 @@
   - Layout matches `DESIGN_SYSTEM.md` (visual comparison)
 - **On failure:** Log to `docs/failures/phase-3.md`
 
+> **Estado (2026-08-02):** ✅ Phase 3 completa — T3.1, T3.2, T3.3, T3.4 e T3.5 concluídas; validação Reviewer **APROVADO COM RESSALVAS** (commit `be303f5`). 3 leves + 3 nits do fast-follow corrigidos e validados em browser (RLS delete do vendedor, debounce de filtros, combobox de cliente, tipagem sem `any`, erro FK 23503). Migration `00002` (policies delete_own_or_admin / delete_own_via_parent) aplicada no banco via SQL Editor. Phase 4 destravada, aguardando comando do usuário.
+
 ---
 
 ## Phase 4 — Reports & Polish
