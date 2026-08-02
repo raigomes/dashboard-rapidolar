@@ -38,3 +38,4 @@ docs/                # briefing.md, PRD.md, TASKS.md, DESIGN_SYSTEM.md, failures
 
 - Dois lockfiles existem (`package-lock.json` + `pnpm-lock.yaml`). Use `npm` — os scripts do package.json usam npm
 - `TASKS.md` e `DESIGN_SYSTEM.md` começam vazios — precisam ser preenchidos pelo Owner/Designer antes do Coder agir
+- **Spec Kit**: os comandos `/speckit.*` geram artefatos de planejamento em `specs/` (spec, plan, contracts, quickstart). Esses artefatos são **insumo, não execução**. NÃO use o `tasks.md` gerado pelo Spec Kit — a lista de tarefas é `docs/TASKS.md`, fonte única mantida pelo Owner

@@ -1,50 +1,76 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+- Version change: (n/a — initial ratification from template) → 1.0.0
+- Modified principles: none (template placeholders filled for first time)
+- Added sections: Core Principles (I–V), Segurança de Dados, Workflow de Desenvolvimento, Governance
+- Removed sections: none
+- Deferred TODOs: none
+-->
+
+# Dashboard RapidoLar Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Stack Mandatória
+Todo código do projeto MUST usar: Next.js (App Router estruturado conforme o template
+clonado), Tailwind CSS, componentes shadcn/ui e Supabase (PostgreSQL + Auth). Nenhuma
+tecnologia fora dessa stack MUST ser introduzida sem emenda constitucional. TypeScript
+strict é obrigatório em todo arquivo `.ts`/`.tsx`. Rationale: manter um único ecossistema
+consistente, testável e de baixo atrito para a squad.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Security-First (NON-NEGOTIABLE)
+Segurança é pré-requisito, não feature. Toda decisão de design, query e mutação MUST
+presumir o pior caso. Autenticação via Supabase Auth é obrigatória; nenhuma rota protegida
+pode operar sem sessão validada no servidor. Rationale: o produto manipula dados comerciais
+de clientes reais e o acesso deve ser auditável em todos os níveis.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. RLS Obrigatório em Todas as Tabelas
+Toda tabela do Supabase MUST ter Row Level Security habilitado e policies explícitas,
+seguindo a matriz definida no PRD (`docs/PRD.md` §3.4). Nenhuma tabela pode ser criada sem
+RLS ativo. O frontend NUNCA deve ser a única camada de autorização — o servidor (Server
+Actions / Route Handlers) MUST revalidar permissões. Rationale: RLS é a última linha de
+defesa; confiar apenas na UI é aceitar vazamento.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Princípio do Menor Privilégio por Cargo
+Vendedores NUNCA podem deletar dados — delete MUST ser exclusivo do admin em todas as
+entidades. Vendedores enxergam apenas as próprias operações (pedidos); dados fora do escopo
+MUST ser invisíveis via policy RLS. Admin possui CRUD completo. Rationale: garantir que o
+erro humano ou credencial comprometida de um vendedor nunca alcance dados fora do seu
+escopo.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Verificação de Qualidade (DoD)
+Nenhuma task está "done" sem: `npx tsc --noEmit` e `npm run lint` sem erros; layout
+conferido com `docs/DESIGN_SYSTEM.md` e `docs/layout/dashboard.pen`; e conformidade com as
+policies RLS desta Constituição. Rationale: gate objetivo e mensurável, prevenindo
+regressões silenciosas de tipagem, segurança e visual.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Segurança de Dados
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- `SUPABASE_URL` e `SUPABASE_ANON_KEY` via variáveis de ambiente; `.env` NUNCA versionado.
+- Credenciais e secrets jamais em código, logs ou comentários.
+- Server Actions MUST validar cargo (admin/vendedor) e propriedade no servidor, não apenas
+  no RLS do cliente.
+- Relatórios (`/relatorios`) são exclusivos de admin; vendedor recebe acesso negado.
+- Sessão persistente via cookie httpOnly (Supabase); middleware protege rotas não
+  autenticadas.
+- Erros de autorização não devem expor detalhes internos do banco.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Workflow de Desenvolvimento
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Squad sequencial: Owner (PRD + TASKS) → Designer (DESIGN_SYSTEM.md + Pencil.dev) →
+  Coder (`src/`) → Reviewer (tsc + conferência visual).
+- Implementação segue estritamente `docs/TASKS.md` e `docs/DESIGN_SYSTEM.md`.
+- Falhas recorrentes identificadas pelo Reviewer MUST ser registradas em `docs/failures/`.
+- Mudanças de assinatura de componentes UI existentes exigem autorização do Reviewer.
+- Definição de Done conforme Princípio V.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta Constituição prevalece sobre práticas ad hoc e toda documentação conflitante. Emendas
+MUST ser documentadas neste arquivo, aprovadas pela squad, e refletidas em bump de versão
+semântico (MAJOR para remoção/redefinição de princípios; MINOR para novos princípios ou
+seções; PATCH para esclarecimentos). Toda PR e revisão MUST verificar conformidade com os
+Princípios I–V. Revisão de conformidade ocorre a cada fase da squad e a cada nova task.
+Runtime de desenvolvimento segue `docs/PRD.md` e `docs/DESIGN_SYSTEM.md`.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-08-01 | **Last Amended**: 2026-08-01
