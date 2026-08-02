@@ -1,7 +1,8 @@
 # Tasks — Dashboard de Vendas RapidoLar
 
 > **Gerado pelo Owner.** Tarefas ordenadas por dependência.
-> **Total:** 26 tarefas em 6 fases (Phase -1 a Phase 4)
+> **Total:** 27 tarefas em 6 fases (Phase -1 a Phase 4)
+> **Atualizado:** 2026-08-02 — migração e seed concluídos; Phase 0 parcialmente feita; novo hotfix 0.0 (page.tsx).
 
 ---
 
@@ -37,33 +38,53 @@
 
 ## Phase 0 — Setup & Foundation
 
-### Task 0.1: Initialize Dependencies
+> **Estado (2026-08-02):** Phase 0 completa — T0.0, T0.1, T0.2, T0.3, T0.4, T0.5 concluídos; validação RLS pelo Reviewer ✅ (0 falhas). Phase 1 (T1.1–T1.4) destravada.
 
+### Task 0.0: Hotfix — Restaurar página inicial quebrada 🔥 (BLOQUEADOR)
+
+- **Status:** ✅ Concluída (2026-08-02)
+- **Agent:** Coder
+- **Dependencies:** Nenhuma
+- **Files affected:** `src/app/page.tsx`
+- **Acceptance criteria:**
+  - `src/app/page.tsx` não contém query a tabela inexistente (`todos`)
+  - `npm run build` e `npx tsc --noEmit` passam
+  - `npm run dev` abre em `http://localhost:3000` sem erro de runtime
+- **Description:**
+  A página foi sobrescrita por uma query de exemplo em `todos` (tabela que NÃO existe no schema `00001_init.sql`), quebrando o build. Restaurar a página padrão do template (ou um placeholder válido sem query a tabela inexistente). **Alerta ao Coder:** a estrutura de rotas ainda não segue `docs/DESIGN_SYSTEM.md` — o placeholder deve respeitar o mapeamento de rotas do PRD §4.1 (raiz pode redirecionar para `/dashboard` quando houver shell; por ora manter simples e válido).
+
+### Task 0.1: Initialize Dependencies ✅
+
+- **Status:** ✅ Concluída (2026-08-02)
+- **Agent:** Coder
 - **Dependencies:** Nenhuma
 - **Files affected:** `package.json`, `tsconfig.json`
 - **Acceptance criteria:**
   - Projeto compila com `npx tsc --noEmit` sem erros
   - `npm run dev` abre em `http://localhost:3000`
   - Tailwind CSS v4 funcional (classe `text-3xl font-bold` renderiza estilizado)
-- **Description:**
-  Instalar dependências necessárias: `@supabase/supabase-js`, `@supabase/ssr`, `recharts`, `shadcn/ui` (configure com `npx shadcn@latest init`), `lucide-react`, `sonner` (toast), `@react-pdf/renderer` (PDF). Garantir que `tailwindcss` v4 e `@tailwindcss/postcss` estão configurados. Verificar que `postcss.config.mjs` usa `@tailwindcss/postcss`.
+- **Feito (2026-08-02):** `@supabase/ssr` + `@supabase/supabase-js` + `tsx` (seed) instalados; `tailwindcss` v4 e `@tailwindcss/postcss` já configurados (`postcss.config.mjs`).
+- **Faltando:** `recharts`, `lucide-react`, `sonner`, `react-hook-form`, `zod`, `@react-pdf/renderer`. Configurar `npx shadcn@latest init` (parte da Task 0.5).
 
-### Task 0.2: Configure Supabase Client
+### Task 0.2: Configure Supabase Client ✅
 
+- **Status:** ✅ Concluída (2026-08-02)
+- **Agent:** Coder
 - **Dependencies:** T0.1
-- **Files affected:** `src/lib/supabase/client.ts`, `src/lib/supabase/server.ts`, `src/lib/supabase/middleware.ts`, `.env.local`
+- **Files affected:** `src/utils/supabase/client.ts`, `src/utils/supabase/server.ts`, `src/utils/supabase/middleware.ts`, `.env.local`
 - **Acceptance criteria:**
   - Client browser criado com `@supabase/ssr` (`createBrowserClient`)
   - Server client criado com `createServerClient` (lê cookies)
   - Middleware client para uso em `src/middleware.ts`
-  - `.env.local` com `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- **Description:**
-  Seguir padrão do `@supabase/ssr` para Next.js App Router. Criar três módulos: `client.ts` (uso em browser), `server.ts` (uso em Server Components / Server Actions), `middleware.ts` (para refresh de sessão). Tipar o `Database` usando `supabase gen types`.
+  - `.env.local` com `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- **Notas de execução:** Módulos criados em `src/utils/supabase/` (não `src/lib/supabase/` como descrito originalmente). Env usa `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (padrão novo do Supabase, equivalente ao anon key) + `SUPABASE_SERVICE_ROLE_KEY` (só seed). **Pendência de revisão:** `src/middleware.ts` ainda não existe — Task 1.1 criará usando o `createClient` de `middleware.ts`.
 
-### Task 0.3: SQL Migration — Schema & RLS
+### Task 0.3: SQL Migration — Schema & RLS ✅
 
+- **Status:** ✅ Concluída (2026-08-01/02) — aplicada no Supabase
+- **Agent:** Coder (implementação) → Reviewer (validação, ✅ 2026-08-02)
 - **Dependencies:** T0.2
-- **Files affected:** `supabase/migrations/001_initial.sql` (ou script SQL inline)
+- **Files affected:** `supabase/migrations/00001_init.sql`
 - **Acceptance criteria:**
   - Tabelas `profiles`, `produtos`, `clientes`, `pedidos`, `pedido_itens` criadas
   - Índices em `pedidos(cliente_id)`, `pedidos(data)`, `pedidos(status)`, `pedido_itens(pedido_id)`
@@ -71,13 +92,15 @@
   - Policies criadas conforme seção 3.4 do PRD
   - Trigger `handle_new_user()` que cria registro em `profiles` ao signup
   - `profiles` tem FK para `auth.users(id) ON DELETE CASCADE`
-- **Description:**
-  Escrever migration SQL com CREATE TABLE, índices, RLS policies e trigger de profile. Executar via Supabase Dashboard ou `supabase migration up`. Garantir que as policies cobrem admin (tudo) e vendedor (apenas seus pedidos, apenas SELECT em produtos/clientes).
+- **Feito:** Schema UUID + `pedidos.created_by` + 4 status + RLS menor privilégio + índices + triggers `set_updated_at`/`handle_new_user` + helper `is_admin()`. Banco recriado e aplicado.
+- **Validação Reviewer (2026-08-02):** ✅ PASSA vs `contracts/rls-policies.md` — RLS nas 5 tabelas, 20 policies `TO authenticated`, vendedores SEM DELETE em produtos/clientes/pedidos/pedido_itens, `is_admin()` SECURITY DEFINER correto, `pedido_itens` herda visibilidade do pedido pai (FK `EXISTS`), índices OK. Divergências leves citadas: nomes de policies diferem dos rótulos do contrato (semântica idêntica); FK `created_by` sem ON DELETE (defensivo). Pendências para Phase 1: fonte Inter (§1.2), tokens teal/neutral (§1.1), metadata `layout.tsx` (lang pt-BR, título RapidoLar), redirect `/` → `/dashboard`.
 
-### Task 0.4: Seed Script — 6 Months of Data
+### Task 0.4: Seed Script — 6 Months of Data ✅
 
+- **Status:** ✅ Concluída (2026-08-02) — seed rodado com sucesso
+- **Agent:** Coder
 - **Dependencies:** T0.3
-- **Files affected:** `scripts/seed.ts`, `package.json` (add script)
+- **Files affected:** `scripts/seed.ts`, `package.json` (script `npm run seed`)
 - **Acceptance criteria:**
   - Script cria 2 usuários Auth: `admin@rapidolar.com` / `vendedor@rapidolar.com` (senha: `123456`)
   - Insere perfis em `profiles` com cargo `admin` e `vendedor`
@@ -86,40 +109,46 @@
   - Gera ~500-900 pedidos nos últimos 6 meses (média 3-5/dia) com 1-5 itens cada
   - Admin vê todos os pedidos, vendedor vê ~40% deles (para testar RLS)
   - Script pode ser executado múltiplas vezes sem duplicar (idempotente)
-- **Description:**
-  Criar script TypeScript executado com `tsx scripts/seed.ts`. Usar `@supabase/supabase-js` com `service_role` key para bypass de RLS. Usar `@faker-js/faker` ou geração manual com arrays de nomes brasileiros. Distribuir datas aleatórias nos últimos 180 dias.
+- **Resultado verificado:** `profiles=2`, `produtos=54`, `clientes=30`, `pedidos=722`, `pedido_itens=1417`.
 
-### Task 0.5: Shadcn/UI Components Setup
+### Task 0.5: Shadcn/UI Components Setup ✅
 
-- **Dependencies:** T0.1
+- **Status:** ✅ Concluída (2026-08-02)
+- **Agent:** Coder
+- **Dependencies:** T0.1 (faltam deps de UI)
 - **Files affected:** `src/components/ui/*` (gerado pelo shadcn)
 - **Acceptance criteria:**
   - `npx shadcn@latest init` concluído com configuração correta (CSS variables, base style)
   - Componentes instalados: `button`, `card`, `table`, `dialog`, `input`, `label`, `select`, `badge`, `skeleton`, `toast`/`sonner`, `form`, `dropdown-menu`, `sheet`
   - `globals.css` configurado com `@import "tailwindcss"` e variáveis CSS para tema
-- **Description:**
-  Executar `npx shadcn@latest init` (new-york style, neutral ou slate base color, CSS variables). Depois adicionar componentes via `npx shadcn@latest add button card table dialog input label select badge skeleton sonner form dropdown-menu sheet`. Verificar que `tailwindcss` v4 está funcionando com as CSS variables do shadcn.
+- **Feito (2026-08-02):** Init shadcn (style `base-nova`, baseColor neutral, CSS vars oklch, icon lucide) + 14 componentes: badge, button, card, chart, dialog, dropdown-menu, input, label, select, sheet, skeleton, sonner, table, toast. `components.json` criado; `globals.css` com `tw-animate-css` + variáveis shadcn (corrigida referência circular `--font-sans` → Geist). Deps: recharts ^3.8.0, lucide-react ^1.28.0, sonner ^2.0.7, react-hook-form ^7.84.0, zod ^4.4.3, @react-pdf/renderer ^4.5.1, next-themes ^0.4.6. **Pendência:** componente `form` NÃO disponível no registry base-nova (react-hook-form + zod instalados; pattern montado manualmente quando precisar). `tsc`/`lint`/`build` ✅ (0 erros).
 
 ---
 
-### 🔍 Reviewer Validation — Phase 0
+### 🔍 Reviewer Validation — Phase 0 ✅
 
-- **Dependencies:** All tasks in Phase 0
+- **Dependencies:** T0.3, T0.4 (já concluídas) — validação formal executada em 2026-08-02
 - **Agent:** Reviewer
 - **Checks:**
-  - `npx tsc --noEmit` passes
-  - `npm run lint` passes
-  - Layout matches `DESIGN_SYSTEM.md` (visual comparison)
+  - [x] Validar `supabase/migrations/00001_init.sql` contra `specs/001-admin-dashboard-mvp/contracts/rls-policies.md` (omissão de DELETE para vendedores; políticas por operação; helper `is_admin()` security definer)
+  - [ ] Validar `00001_init.sql` contra `docs/layout/dashboard.pen` + `docs/DESIGN_SYSTEM.md` (nomes/campos usados no layout)
+  - [ ] `npx tsc --noEmit` passes (após hotfix T0.0)
+  - [ ] `npm run lint` passes
 - **On failure:** Log to `docs/failures/phase-0.md`
+- **Nota:** Delegação acionada em 2026-08-02 — aguardando retorno do Reviewer.
 
 ---
 
-## Phase 1 — Auth & Layout Shell
+## Phase 1 — Auth & Layout Shell (F-01 a F-06)
+
+> **Mapa PRD:** T1.1 → F-03/F-06; T1.2 → F-01/F-02; T1.3 → F-04/F-05 (shell + logout); T1.4 → F-05 (perfil/controle por cargo). T0.5 (shadcn) bloqueia T1.2/T1.3.
 
 ### Task 1.1: Auth Middleware & Session Management
 
+- **Status:** ⏳ Pendente
+- **Agent:** Coder
 - **Dependencies:** T0.2
-- **Files affected:** `src/middleware.ts`, `src/lib/supabase/middleware.ts`
+- **Files affected:** `src/middleware.ts`, `src/utils/supabase/middleware.ts` (já existe `createClient` — criar `updateSession` no topo)
 - **Acceptance criteria:**
   - Middleware executa em todas as requisições para `/(dashboard|produtos|clientes|pedidos|relatorios)/*`
   - Se não há sessão, redireciona para `/login`
@@ -131,6 +160,8 @@
 
 ### Task 1.2: Login Page
 
+- **Status:** ⏳ Pendente
+- **Agent:** Coder
 - **Dependencies:** T1.1, T0.5
 - **Files affected:** `src/app/login/page.tsx`, `src/app/login/layout.tsx`, `src/app/auth/confirm/route.ts`
 - **Acceptance criteria:**
@@ -146,6 +177,8 @@
 
 ### Task 1.3: App Shell — Sidebar + Header + Layout
 
+- **Status:** ⏳ Pendente
+- **Agent:** Coder (Designer confirma cobertura do layout na delegação atual)
 - **Dependencies:** T1.2, T0.5
 - **Files affected:** `src/app/(dashboard)/layout.tsx`, `src/components/layout/sidebar.tsx`, `src/components/layout/header.tsx`, `src/components/layout/user-nav.tsx`
 - **Acceptance criteria:**
@@ -162,6 +195,8 @@
 
 ### Task 1.4: Profile Page (Self-Service)
 
+- **Status:** ⏳ Pendente (P2 — pode ser simplificada/adiada)
+- **Agent:** Coder
 - **Dependencies:** T1.3
 - **Files affected:** `src/app/(dashboard)/perfil/page.tsx`
 - **Acceptance criteria:**
