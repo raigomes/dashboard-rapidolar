@@ -154,7 +154,14 @@ export function ProdutoForm({
               }}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione a categoria" />
+                <SelectValue placeholder="Selecione a categoria">
+                  {(value) =>
+                    value
+                      ? CATEGORIA_OPTIONS[String(value) as keyof typeof CATEGORIA_OPTIONS] ??
+                        "Selecione a categoria"
+                      : "Selecione a categoria"
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {CATEGORIAS_PRODUTO.map((cat) => (

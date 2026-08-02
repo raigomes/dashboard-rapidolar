@@ -22,7 +22,7 @@ const sb = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
 type Cargo = "admin" | "vendedor";
 type Status = "pendente" | "confirmado" | "entregue" | "cancelado";
 
-const CATEGORIAS = ["Limpeza", "Descartáveis", "Higiene"] as const;
+const CATEGORIAS = ["limpeza", "descartáveis", "higiene"] as const;
 const BASES = [
   "Detergente",
   "Desinfetante",

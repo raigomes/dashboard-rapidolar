@@ -235,7 +235,13 @@ export function PedidoForm({
                   onValueChange={(value) => setStatus(String(value ?? "pendente"))}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder="Status">
+                      {(value) =>
+                        value
+                          ? formatStatus(String(value))
+                          : "Status"
+                      }
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {STATUS_OPCOES.map((s) => (
@@ -296,7 +302,15 @@ export function PedidoForm({
                           }
                         >
                           <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Produto" />
+                            <SelectValue placeholder="Produto">
+                              {(value) =>
+                                value
+                                  ? produtos.find(
+                                      (p) => p.id === value,
+                                    )?.nome ?? "Produto"
+                                  : "Produto"
+                              }
+                            </SelectValue>
                           </SelectTrigger>
                           <SelectContent>
                             {produtos.map((produto) => (

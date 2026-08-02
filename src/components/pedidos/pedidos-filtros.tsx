@@ -86,7 +86,14 @@ export function PedidosFiltros({ clientes }: { clientes: ClienteOption[] }) {
         onValueChange={(value) => atualizar("cliente_id", String(value ?? ""))}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Todos os clientes" />
+          <SelectValue placeholder="Todos os clientes">
+            {(value) =>
+              value
+                ? clientes.find((c) => c.id === value)?.nome ??
+                  "Todos os clientes"
+                : "Todos os clientes"
+            }
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="">Todos os clientes</SelectItem>
@@ -102,7 +109,13 @@ export function PedidosFiltros({ clientes }: { clientes: ClienteOption[] }) {
         onValueChange={(value) => atualizar("status", String(value ?? ""))}
       >
         <SelectTrigger className="w-[150px]">
-          <SelectValue placeholder="Todos os status" />
+          <SelectValue placeholder="Todos os status">
+            {(value) =>
+              value
+                ? formatStatus(String(value))
+                : "Todos os status"
+            }
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="">Todos os status</SelectItem>
