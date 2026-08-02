@@ -224,7 +224,9 @@
 
 ## Phase 2 — Dashboard
 
-### Task 2.1: Metric Cards Component
+> **Estado (2026-08-02):** ✅ Phase 2 completa — T2.1, T2.2, T2.3, T2.4 e T2.5 concluídas; validação Reviewer APROVADA (commit `ec153d0`). Phase 3 (CRUD) destravada, aguardando comando do usuário.
+
+### Task 2.1: Metric Cards Component ✅
 
 > **Decisão do Owner (2026-07-31):** F-07 alinhado a 4 cards (faturamento hoje, faturamento do mês, pedidos hoje, ticket médio). "Clientes ativos" e "pedidos (mês)" descopados — removidos do PRD F-07. Protótipo `dashboard.pen` e `DESIGN_SYSTEM.md` são a fonte de verdade.
 
@@ -239,7 +241,7 @@
 - **Description:**
   Componente Client Component (para animação/entrada de dados). Recebe dados por props de um Server Component pai. Formatação de moeda com `Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`. Variação calculada: ((atual - anterior) / anterior) \* 100.
 
-### Task 2.2: Sales Chart with Period Selector
+### Task 2.2: Sales Chart with Period Selector ✅
 
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/sales-chart.tsx`, `src/components/dashboard/period-selector.tsx`
@@ -254,7 +256,7 @@
 - **Description:**
   Agrupar pedidos por data (7d/30d agrupamento diário; 12m agrupamento mensal). Recharts `ResponsiveContainer`, `LineChart`, `Line`, `XAxis`, `YAxis`, `Tooltip`, `CartesianGrid`. Dados passados por props. Seletor controla estado no Client Component e faz fetch via Server Action ou query param.
 
-### Task 2.3: Top 10 Products Table
+### Task 2.3: Top 10 Products Table ✅
 
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/top-products.tsx`
@@ -266,7 +268,7 @@
 - **Description:**
   Query SQL: `SELECT p.nome, p.categoria, SUM(pi.qtd) as qtd_vendida, SUM(pi.qtd * pi.preco_unit) as receita FROM pedido_itens pi JOIN produtos p ON p.id = pi.produto_id GROUP BY p.id ORDER BY receita DESC LIMIT 10`. Usar shadcn `Table`.
 
-### Task 2.4: Top 10 Clients Table
+### Task 2.4: Top 10 Clients Table ✅
 
 - **Dependencies:** T1.3, T0.5
 - **Files affected:** `src/components/dashboard/top-clients.tsx`
@@ -277,7 +279,7 @@
 - **Description:**
   Query SQL: `SELECT c.nome, c.telefone, SUM(ped.total) as total_compras, COUNT(ped.id) as qtd_pedidos FROM pedidos ped JOIN clientes c ON c.id = ped.cliente_id GROUP BY c.id ORDER BY total_compras DESC LIMIT 10`. Usar shadcn `Table`.
 
-### Task 2.5: Dashboard Page Assembly
+### Task 2.5: Dashboard Page Assembly ✅
 
 - **Dependencies:** T2.1, T2.2, T2.3, T2.4
 - **Files affected:** `src/app/(dashboard)/dashboard/page.tsx`
@@ -294,15 +296,15 @@
 
 ---
 
-### 🔍 Reviewer Validation — Phase 2
+### 🔍 Reviewer Validation — Phase 2 ✅
 
-- **Dependencies:** All tasks in Phase 2
+- **Dependencies:** All tasks in Phase 2 — executada em 2026-08-02, veredito **APROVADO**
 - **Agent:** Reviewer
 - **Checks:**
-  - `npx tsc --noEmit` passes
-  - `npm run lint` passes
-  - Layout matches `DESIGN_SYSTEM.md` (visual comparison)
-- **On failure:** Log to `docs/failures/phase-2.md`
+  - [x] `npx tsc --noEmit` passes
+  - [x] `npm run lint` passes
+  - [x] Layout matches `DESIGN_SYSTEM.md` (visual comparison)
+- **On failure:** Log to `docs/failures/phase-2.md` — 1 desvio de cor ACEITO (hex vs hsl(var) no Recharts), 2 swaps de ícone §6 corrigidos em fast-follow. Nenhuma falha crítica.
 
 ---
 
