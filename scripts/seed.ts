@@ -1,12 +1,16 @@
 import "dotenv/config";
+import { config as loadEnv } from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
+loadEnv({ path: ".env.local" });
+
+const SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   console.error(
-    "Defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY em .env.local"
+    "Defina NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY em .env.local"
   );
   process.exit(1);
 }
@@ -104,18 +108,18 @@ async function ensureUser(
   nome: string,
   cargo: Cargo
 ): Promise<string> {
-  const { data: existing } = await sb
+  const { data: existingProfile } = await sb
     .from("profiles")
     .select("id")
     .eq("email", email)
     .maybeSingle();
 
-  if (existing) {
+  if (existingProfile) {
     console.log(`👤 Usuário já existe: ${email}`);
-    return existing.id;
+    return existingProfile.id;
   }
 
-  const { data, error } = await sb.auth.admin.createUser({
+  const { data: created, error } = await sb.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
@@ -123,12 +127,34 @@ async function ensureUser(
   });
 
   if (error) {
-    console.error(`Erro ao criar usuário ${email}:`, error.message);
-    process.exit(1);
+    const { data: users } = await sb.auth.admin.listUsers({
+      page: 1,
+      perPage: 1000,
+    });
+    const found = (users?.users ?? []).find((u) => u.email === email) as
+      | { id: string; email: string }
+      | undefined;
+
+    if (!found) {
+      console.error(`Erro ao criar usuário ${email}:`, error.message);
+      process.exit(1);
+    }
+
+    const { error: errProfile } = await sb
+      .from("profiles")
+      .insert({ id: found.id, nome, email, cargo });
+
+    if (errProfile) {
+      console.error(`Erro ao recriar perfil ${email}:`, errProfile.message);
+      process.exit(1);
+    }
+
+    console.log(`👤 Perfil recriado: ${email} (${cargo})`);
+    return found.id;
   }
 
   console.log(`👤 Usuário criado: ${email} (${cargo})`);
-  return data.user.id;
+  return created.user.id;
 }
 
 async function seedProdutos(): Promise<string[]> {
