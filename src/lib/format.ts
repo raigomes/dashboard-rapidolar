@@ -39,3 +39,37 @@ export function formatAtualizacao(date: Date): string {
     minute: "2-digit",
   }).format(date);
 }
+
+export function formatData(iso: string): string {
+  const [year, month, day] = iso.split("-");
+  if (!year || !month || !day) return iso;
+  return `${day}/${month}/${year}`;
+}
+
+const CATEGORIA_LABELS: Record<string, string> = {
+  limpeza: "Limpeza",
+  "descartáveis": "Descartáveis",
+  higiene: "Higiene",
+  alimentos: "Alimentos",
+  bebidas: "Bebidas",
+};
+
+export function formatCategoria(categoria: string): string {
+  const lower = categoria.toLowerCase();
+  return CATEGORIA_LABELS[lower] ?? categoria;
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  pendente: "Pendente",
+  confirmado: "Confirmado",
+  entregue: "Entregue",
+  cancelado: "Cancelado",
+};
+
+export function formatStatus(status: string): string {
+  return STATUS_LABELS[status] ?? status;
+}
+
+export function formatUuidCurto(id: string): string {
+  return `#${id.slice(0, 6).toUpperCase()}`;
+}
