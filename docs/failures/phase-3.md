@@ -85,3 +85,54 @@
 - ✅ Busca produtos/clientes com debounce 300ms → `?q=`
 - ✅ Modais `sm:max-w-lg` (produtos/clientes) e `sm:max-w-2xl` (pedidos) com itens
   dinâmicos e total bold
+
+---
+
+# Revalidação 2026-08-02 (fast-follow — commits `be303f5`, `04d77d9`)
+
+> Reviewer: 2026-08-02 · Veredito: **APROVADO COM RESSALVAS (apenas nits)**
+> Todos os 3 leves e 2 dos 3 nits anteriores foram corrigidos. Sem falha
+> bloqueante e sem regressão. Nits residuais abaixo não impedem o fechamento.
+
+## Status dos achados anteriores
+
+| # | Achado anterior | Status |
+| - | --------------- | ------ |
+| LEVE 1 | Remoção de itens por vendedor | ✅ **Corrigido** — `updatePedido` faz delete+insert completo; `deletePedido` permite ao dono; migration 00002 cria `pedidos_delete_own_or_admin` + `pedido_itens_delete_own_via_parent` (consistente com 00001: `TO authenticated`, `public.is_admin()`, drops `IF EXISTS`). Corolário do rollback do `createPedido` também resolvido. |
+| LEVE 2 | Race de debounce de datas | ✅ **Corrigido** — 1 useEffect único sobre `[dataInicio, dataFim]`, timer limpo a cada mudança, params reconstruídos do `searchParams` atual + estado. Não perde o primeiro filtro. |
+| LEVE 3 | Combobox de cliente | ✅ **Corrigido** — `cliente-combobox.tsx` (Command+Popover/cmdk + base-ui), busca e teclado OK, seleção por closure (sem ambiguidade de nomes duplicados). |
+| NIT 1 | 8× `any` em `/pedidos/page.tsx` | ✅ **Corrigido** — zero `any` em `src/` (única ocorrência é comentário pré-existente em `middleware.ts`). Tipagem estrutural genérica `aplicarFiltros <T,>` + `as unknown as` pragmático. |
+| NIT 2 | Paginação (Anterior/Próxima vs shadcn `Pagination`) | ⏸ **Mantido** — fora do escopo do fast-follow; permitido pelo TASKS ("10 ou 20"). |
+| NIT 3 | FK 23503 cru em delete | ✅ **Corrigido** — `src/lib/db-errors.ts` (`mensagemErroDelete`) usado em `deleteProduto`/`deleteCliente`. |
+
+## Tooling (refeito nesta revalidação)
+
+- ✅ `npx tsc --noEmit` — 0 erros
+- ✅ `npm run lint` — 0 erros
+- ✅ `npm run build` — OK (7 rotas compiladas, sem warnings)
+- ✅ Runtime: `/pedidos` sem auth → 307 `/login` (middleware OK); `/login` renderiza
+
+## Nits novos / observações (não bloqueantes)
+
+1. **Race cruzada residual nos filtros (pré-existente, não regressão):** o timer do
+   debounce de datas captura `searchParams` do render em que rodou. Se o usuário
+   alterar uma data e, dentro de ~300ms, mudar o Select de cliente/status, o timer
+   pode emitir URL com snapshot antigo e descartar a mudança do Select. A solução
+   definitiva seria ler `window.location.search` dentro do timer (sugestão 2 do
+   LEVE 2 original) — não bloqueia, janela muito estreita.
+2. **`updatePedido` sem transação DB:** o delete+insert de itens não é atômico; se
+   o INSERT falhar após o DELETE, o pedido fica com 0 itens e `total` atualizado.
+   Não é regressão (padrão pré-existente do caminho admin) e o retry com o mesmo
+   form recupera. Melhoria futura: função `SECURITY DEFINER` transacional.
+3. **A11y do combobox:** o trigger tem `role="combobox"` + `aria-expanded`, mas o
+   `Label` "Cliente" não aponta para ele (`htmlFor`/`aria-labelledby`). O nome
+   acessível vem só do texto do botão. Sugestão: `aria-labelledby` no trigger.
+4. **Pendência de validação:** não há testes Playwright versionados no repo — a
+   validação de browser reportada foi manual/adhoc. Recomenda-se commit de um
+   smoke test (login + /pedidos + combobox) para as próximas fases.
+
+## Confirmação RLS vs DESIGN_SYSTEM §5
+
+- "Criar/editar/excluir pedidos: ✅ (todos) / ✅ (apenas seus)" — **implementado**:
+  RLS + checks em app (`created_by === userId` para não-admin) em `updatePedido` e
+  `deletePedido`; UI esconde ações para pedidos alheios (`podeEditar`).
