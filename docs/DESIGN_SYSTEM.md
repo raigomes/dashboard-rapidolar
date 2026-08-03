@@ -1,9 +1,10 @@
 # Design System — RapidoLar Dashboard
 
 > **Gerado pelo Designer (Pencil.dev).** Especificação visual para implementação.
-> **Versão:** 1.5
+> **Versão:** 1.5.1
 > **Data:** 2026-08-03
-> **Changelog v1.5:** sync com a feature "estoque baixo" (veredito do @reviewer 2026-08-03: **APROVADO COM NITS** — follow-up obrigatório do Designer, `docs/failures/estoque-baixo-review.md` §3). 5ª métrica no dashboard — **Estoque Baixo** (ícone `PackageOpen` size-5 `text-muted-foreground`, `formatInteger`, variação "—" quando `variacao === null`; grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5`, skeleton com 5 cards). §2.2 Metric Card: grid 5 colunas desktop + variante do 5º card; §3.2: wireframe com 5º card + grid atualizada; §4: desktop `xl:grid-cols-5`, tablet landscape 1024–1279px `lg:grid-cols-3` (3+2); §1.1: nova regra de variação "—" (null) e correção da variação positiva para `text-emerald-700` (era 600 — código usa 700, contraste 5.48:1 ✓); §1.6 e §8 atualizados (grid 2-5 colunas, "5 metric cards"). Badge **"Estoque baixo"** (`variant="outline"` + `border-amber-300 bg-amber-100 text-amber-800`, `text-xs font-medium`, pill `h-5`, `title` acessível, contraste **6.37:1** ✓ WCAG AA) documentado na §2.6 (tokens `$estbg`/`$estfg`/`$estbd`) e §3.3 (célula Estoque: número + badge `gap-2`, visível para admin E vendedor). §6: "Card — Estoque baixo → `PackageOpen`". `dashboard.pen` **v2.15**: 5º MetricCard `eBqU7` no `MetricsRow` `urL8F`; novos tokens `$estbg`/`$estfg`/`$estbd` (amber-100/800/300); novo reusable `esBdg` (Badge Estoque Baixo) e variante `N7Wq` (Row Produto Estoque Baixo — badge no CellEstoque; o formato Pencil.dev não tem toggle de visibilidade de filho via `descendants`, então a linha com badge é uma **variante de estado**, padrão documentado no AGENTS.md); linhas 1-2 da tabela de produtos demonstram estoque 2 e 10 com badge. Refs do protótipo passam de **101** → **103**.
+> **Changelog v1.5.1:** decisão do produto 2026-08-03 — badge **"Estoque baixo"** movido da coluna **Estoque** para a coluna **Nome** da tabela de `/produtos` (o badge na célula Estoque quebrava a régua dos números alinhados à direita; a célula Estoque volta a exibir **apenas o número**, `text-right`). §2.6: posicionamento atualizado — badge após o nome do produto em `flex items-center gap-2` com `flex-wrap` em telas estreitas; tokens `$estbg`/`$estfg`/`$estbd` e contraste 6.37:1 inalterados. §3.3: wireframe atualizado — "Célula Nome" (nome + badge) e "Célula Estoque" (número apenas, `text-right`); tabela de especificações revisada. §4 (mobile): nota do badge atualizada para a célula Nome. `dashboard.pen` **v2.15** (formato do arquivo — ver correção ao final deste changelog): variante `N7Wq` (Row Produto Estoque Baixo) — badge `esBdg` movido para o `CellNome` `zXWzV` (`gap: 8`, `alignItems: center`); `CellEstoque` `xSBdg` idêntico à linha base `N7WNt` (número, sem badge, sem `gap`/`justifyContent: end`); tokens amber e linha base sem badge inalterados. Refs do protótipo permanecem **103**. **Correção de formato (2026-08-03):** o campo `version` do `.pen` é a versão do **FORMATO do arquivo**, não versão de design — o app Pen (v1.2.3, versão mais recente) aceita apenas **`2.15`**. O bump para `2.16` gerou "Unsupported file format 2.16" e foi revertido para `2.15`, **mantendo todas as mudanças de layout** (badge na coluna Nome). Iterações de design são versionadas no `DESIGN_SYSTEM.md`; o `.pen` permanece no formato suportado.
+> **Changelog v1.5:** sync com a feature "estoque baixo" (veredito do @reviewer 2026-08-03: **APROVADO COM NITS** — follow-up obrigatório do Designer, `docs/failures/estoque-baixo-review.md` §3). 5ª métrica no dashboard — **Estoque Baixo** (ícone `PackageOpen` size-5 `text-muted-foreground`, `formatInteger`, variação "—" quando `variacao === null`; grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5`, skeleton com 5 cards). §2.2 Metric Card: grid 5 colunas desktop + variante do 5º card; §3.2: wireframe com 5º card + grid atualizada; §4: desktop `xl:grid-cols-5`, tablet landscape 1024–1279px `lg:grid-cols-3` (3+2); §1.1: nova regra de variação "—" (null) e correção da variação positiva para `text-emerald-700` (era 600 — código usa 700, contraste 5.48:1 ✓); §1.6 e §8 atualizados (grid 2-5 colunas, "5 metric cards"). Badge **"Estoque baixo"** (`variant="outline"` + `border-amber-300 bg-amber-100 text-amber-800`, `text-xs font-medium`, pill `h-5`, `title` acessível, contraste **6.37:1** ✓ WCAG AA) documentado na §2.6 (tokens `$estbg`/`$estfg`/`$estbd`) e §3.3 (célula Estoque: número + badge `gap-2`, visível para admin E vendedor — posição alterada em v1.5.1, ver acima). §6: "Card — Estoque baixo → `PackageOpen`". `dashboard.pen` **v2.15**: 5º MetricCard `eBqU7` no `MetricsRow` `urL8F`; novos tokens `$estbg`/`$estfg`/`$estbd` (amber-100/800/300); novo reusable `esBdg` (Badge Estoque Baixo) e variante `N7Wq` (Row Produto Estoque Baixo — badge no CellEstoque; o formato Pencil.dev não tem toggle de visibilidade de filho via `descendants`, então a linha com badge é uma **variante de estado**, padrão documentado no AGENTS.md); linhas 1-2 da tabela de produtos demonstram estoque 2 e 10 com badge. Refs do protótipo passam de **101** → **103**.
 > **Changelog v1.4.1:** logo duplicada removida do header da área logada (decisão do usuário 2026-08-02). O Header **não tem logo** — apenas hamburger (mobile), título da página e UserNav; a logo RapidoLar fica **exclusivamente na sidebar** (Logo sm, §2.7). `dashboard.pen` atualizado: frame Header `b8y6F` sem o grupo `HdrLgA` (LogoSm: mark 32px `$brand-10` + label `spray-can` + wordmark) — Header volta a ser PageTitle + Spacer + UserNav. Logo da sidebar (LogoBar), landing e login **inalteradas**. §2.8 reescrita sem logo; §1.1 e §6 ajustadas (referência ao sm restrita à sidebar); refs do protótipo permanecem **101**.
 > **Changelog v1.4:** identidade visual da marca aprovada pelo usuário (commits `6cc50e8` + `0da49f5`) — logo RapidoLar passa a ser `SprayCanIcon` (Lucide `spray-can`) em caixa `bg-primary/10` com ícone `text-primary`. §2.7 Sidebar (barra branca com **Logo sm**), §2.8 Header (**Logo sm** à esquerda, wordmark `hidden md:inline` — **removido em v1.4.1, ver acima**), §3.0 Landing (**Logo md**, nav `h-[72px]`), §3.1 Login (**Logo md** centralizado), §3.6 Relatórios/PDF (marca SprayCan em SVG branco sobre caixa teal `#0F766E` 28px r6 — substitui a antiga letra "R"), §1.1 padrão da logo, §6 ícone `SprayCan`, §8 componente `Logo` em `src/components/layout/logo.tsx`. `dashboard.pen` v2.14 atualizado (frames `vajch`/`tPjaL` Login, `Ld101`/`Ld102` Landing, LogoBar dos 5 sidebars `fhwvF`/`7t2cZ`/`frCbF`/`PmPwp`/`hGyUv`, Header `b8y6F`) com novo token `$brand-10` (`#E7F1F0` = teal `#0F766E` a 10% sobre branco). Os antigos marks (quadrado liso `$brand`, barra sólida `$brand` com texto branco) ficam apenas neste changelog como histórico.
 > **Changelog v1.3:** correção T4.7 (2ª rodada) no frame `LndPg` do `dashboard.pen` — `Ld131` (CtaCard) com `width: 1152` (antes `fill_container`, que esticava a banda `$brand` por toda a tela; agora equivale a `max-w-6xl mx-auto` da §3.0) e textos `Ld132`/`Ld133` (CtaTitle/CtaSub) com `width: fill_container` (antes sem `width` + `textGrowth: fixed-width`, que quebrava cada caractere em linha própria). §3.0 atualizada com nota.
@@ -349,14 +350,16 @@ Usar shadcn/ui `<Badge>` para status.
 **Badges de categoria de produto:**
 - Usar `variant="outline"` com `text-xs` — cor neutra (não competir com status)
 
-**Badge "Estoque baixo" (produtos, v1.5):**
+**Badge "Estoque baixo" (produtos, v1.5; posição atualizada em v1.5.1):**
 
 | Badge           | Variante (`variant`) | Classes adicionais                        |
 | --------------- | -------------------- | ----------------------------------------- |
 | Estoque baixo   | `outline`            | `border-amber-300 bg-amber-100 text-amber-800` |
 
 - Texto `text-xs font-medium`, pill `h-5` (`rounded-full`), `title` acessível: `"Estoque baixo: até 10 unidades"`
-- Exibido na célula **Estoque** da tabela de produtos quando `isEstoqueBaixo(estoque)` — critério: `estoque <= ESTOQUE_BAIXO_LIMITE` (`ESTOQUE_BAIXO_LIMITE = 10`, `src/lib/estoque.ts`)
+- Exibido na célula **Nome** da tabela de produtos, **após o nome do produto**, quando `isEstoqueBaixo(estoque)` — critério: `estoque <= ESTOQUE_BAIXO_LIMITE` (`ESTOQUE_BAIXO_LIMITE = 10`, `src/lib/estoque.ts`)
+- Layout: nome + badge em `flex items-center gap-2`, com `flex-wrap` em telas estreitas (o badge quebra para a linha seguinte em vez de estourar a célula)
+- A célula **Estoque** exibe **apenas o número**, alinhado à direita (`text-right`) — **sem badge**, para preservar o alinhamento numérico da coluna (decisão do produto 2026-08-03, changelog v1.5.1)
 - Visível para **admin E vendedor** (RLS não filtra o badge)
 - Contraste **6.37:1** (amber-800 `#92400E` / amber-100 `#FEF3C7`) — ✓ WCAG AA
 - Tokens no protótipo `dashboard.pen`: `$estbg` (`#FEF3C7` = amber-100), `$estfg` (`#92400E` = amber-800), `$estbd` (`#FCD34D` = amber-300)
@@ -666,11 +669,11 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 │            │  Produtos                    [Busca...] [ + Novo ]│
 │            │                                                   │
 │            │  ┌──────────────────────────────────────────┐     │
-│            │  │ Nome   │ Cat.    │ Preço   │ Estoque      │     │
+│            │  │ Nome                 │ Cat.    │ Preço   │ Estoque │     │
 │            │  │──────────────────────────────────────────│     │
-│            │  │ Prod A │ Limpeza │ R$ 12,90│ 45           │ ✏️🗑️ │
-│            │  │ Prod B │ Higiene │ R$ 8,50 │ 2 [Est. baixo]│ ✏️🗑️ │
-│            │  │ ...    │ ...     │ ...     │ ...          │    │     │
+│            │  │ Prod A               │ Limpeza │ R$ 12,90│ 45      │ ✏️🗑️ │
+│            │  │ Prod B [Est. baixo]  │ Higiene │ R$ 8,50 │ 2       │ ✏️🗑️ │
+│            │  │ ...                  │ ...     │ ...     │ ...     │     │
 │            │  └──────────────────────────────────────────┘     │
 │            │                                                   │
 │            │  < 1 2 3 ... 10 >                                 │
@@ -684,7 +687,8 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | **Search input**    | `Input placeholder="Buscar por nome..." className="max-w-xs"` |
 | **New button**      | `Button`" + `Plus` icon — "Novo Produto"              |
 | **Table columns**   | Nome, Categoria (badge), Preço (R$), Estoque, Ações    |
-| **Célula Estoque**  | Número (`formatInteger`) + badge "Estoque baixo" (§2.6) em `flex items-center justify-end gap-2`, com `title="Estoque baixo: até 10 unidades"`. Badge exibido quando `isEstoqueBaixo(estoque)` (`estoque <= 10`) — visível para **admin E vendedor** |
+| **Célula Nome**     | Nome do produto + badge "Estoque baixo" (§2.6) em `flex items-center gap-2 flex-wrap`, com `title="Estoque baixo: até 10 unidades"`. Badge exibido quando `isEstoqueBaixo(estoque)` (`estoque <= 10`) — visível para **admin E vendedor** |
+| **Célula Estoque**  | Apenas o número (`formatInteger`), alinhado à direita (`text-right`) — **sem badge** (decisão do produto 2026-08-03: preservar o alinhamento numérico da coluna) |
 | **Ações**           | `Button variant="ghost" size="icon"` + `Pencil` / `Trash2` |
 | **Edit/New modal**  | `DialogContent sm:max-w-lg` com form: nome, categoria (Select), preço (Input number), estoque (Input number) |
 | **Delete confirm**  | `AlertDialog` — "Tem certeza que deseja excluir [nome]?" — "Cancelar" / "Excluir" (destructive) |
@@ -887,7 +891,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | Metric cards grid      | `grid-cols-1` (stacked vertical)                      |
 | Top tables layout      | `grid-cols-1` empilhadas                             |
 | Chart height           | `h-[200px]`                                           |
-| Tables                 | `overflow-x-auto` obrigatório, `min-w-[600px]` (badge "Estoque baixo" não estoura) |
+| Tables                 | `overflow-x-auto` obrigatório, `min-w-[600px]` (badge "Estoque baixo" na célula Nome não estoura — `flex-wrap` quando necessário) |
 | Modals                 | Full-width com margem pequena (`max-w-[calc(100%-16px)]`) |
 | Page padding           | `px-4` em vez de `px-6`                               |
 | Header buttons         | Apenas ícones (sem texto)                             |

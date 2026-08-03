@@ -5344,6 +5344,8 @@
           "name": "CellNome",
           "width": 220,
           "layout": "horizontal",
+          "gap": 8,
+          "alignItems": "center",
           "children": [
             {
               "type": "text",
@@ -5354,6 +5356,12 @@
               "fontFamily": "Inter",
               "fontSize": 14,
               "fontWeight": "normal"
+            },
+            {
+              "type": "ref",
+              "id": "bEStk",
+              "ref": "esBdg",
+              "name": "Badge Estoque Baixo"
             }
           ]
         },
@@ -5424,16 +5432,8 @@
               "fontFamily": "Inter",
               "fontSize": 14,
               "fontWeight": "500"
-            },
-            {
-              "type": "ref",
-              "id": "bEStk",
-              "ref": "esBdg",
-              "name": "Badge Estoque Baixo"
             }
-          ],
-          "gap": 8,
-          "justifyContent": "end"
+          ]
         },
         {
           "type": "frame",
