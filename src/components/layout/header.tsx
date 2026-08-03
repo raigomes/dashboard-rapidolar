@@ -35,7 +35,7 @@ export function Header({ nome, email }: { nome: string; email: string }) {
       >
         <MenuIcon className="size-5" />
       </SheetTrigger>
-      <h1 className="text-base font-semibold">{title}</h1>
+      <p className="text-base font-semibold">{title}</p>
       <div className="ml-auto">
         <UserNav nome={nome} email={email} />
       </div>

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Toaster } from "@/components/layout/toaster";
 import { toastError } from "@/lib/toast";
 import { createClient } from "@/utils/supabase/client";
 
@@ -117,7 +118,7 @@ export default function LoginPage() {
             </div>
 
             {formError && (
-              <p className="text-center text-sm text-destructive">
+              <p role="alert" className="text-center text-sm text-destructive">
                 {formError}
               </p>
             )}
@@ -129,6 +130,7 @@ export default function LoginPage() {
           </form>
         </CardContent>
       </Card>
+      <Toaster />
     </main>
   );
 }

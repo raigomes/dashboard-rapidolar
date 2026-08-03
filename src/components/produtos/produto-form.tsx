@@ -141,7 +141,7 @@ export function ProdutoForm({
               {...register("nome")}
             />
             {errors.nome && (
-              <p className="text-xs text-destructive">{errors.nome.message}</p>
+              <p role="alert" className="text-xs text-destructive">{errors.nome.message}</p>
             )}
           </div>
 
@@ -173,7 +173,7 @@ export function ProdutoForm({
               </SelectContent>
             </Select>
             {categoriaErro && (
-              <p className="text-xs text-destructive">{categoriaErro}</p>
+              <p role="alert" className="text-xs text-destructive">{categoriaErro}</p>
             )}
           </div>
 
@@ -191,7 +191,7 @@ export function ProdutoForm({
                 {...register("preco")}
               />
               {errors.preco && (
-                <p className="text-xs text-destructive">{errors.preco.message}</p>
+                <p role="alert" className="text-xs text-destructive">{errors.preco.message}</p>
               )}
             </div>
             <div className="space-y-2">
@@ -207,7 +207,7 @@ export function ProdutoForm({
                 {...register("estoque")}
               />
               {errors.estoque && (
-                <p className="text-xs text-destructive">{errors.estoque.message}</p>
+                <p role="alert" className="text-xs text-destructive">{errors.estoque.message}</p>
               )}
             </div>
           </div>

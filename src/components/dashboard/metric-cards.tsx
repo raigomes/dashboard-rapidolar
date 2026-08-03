@@ -30,7 +30,7 @@ function Variacao({ variacao }: { variacao: number | null }) {
   }
   if (variacao > 0) {
     return (
-      <p className="flex items-center gap-1 text-xs font-medium text-emerald-600">
+      <p className="flex items-center gap-1 text-xs font-medium text-emerald-700">
         <TrendingUp className="size-3.5" />
         {formatVariacao(variacao)}
       </p>

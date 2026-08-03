@@ -129,7 +129,7 @@ export default function Page() {
             <h2 className="text-2xl font-bold text-primary-foreground md:text-3xl">
               Pronto para organizar suas vendas?
             </h2>
-            <p className="mt-2 text-primary-foreground/80">
+            <p className="mt-2 text-primary-foreground">
               Acesse o painel e veja os números da sua distribuidora.
             </p>
             <Link

@@ -114,7 +114,7 @@ export function ClienteForm({
               {...register("nome")}
             />
             {errors.nome && (
-              <p className="text-xs text-destructive">{errors.nome.message}</p>
+              <p role="alert" className="text-xs text-destructive">{errors.nome.message}</p>
             )}
           </div>
 
@@ -132,7 +132,7 @@ export function ClienteForm({
               {...register("telefone")}
             />
             {errors.telefone && (
-              <p className="text-xs text-destructive">{errors.telefone.message}</p>
+              <p role="alert" className="text-xs text-destructive">{errors.telefone.message}</p>
             )}
           </div>
 
@@ -147,7 +147,7 @@ export function ClienteForm({
               {...register("endereco")}
             />
             {errors.endereco && (
-              <p className="text-xs text-destructive">{errors.endereco.message}</p>
+              <p role="alert" className="text-xs text-destructive">{errors.endereco.message}</p>
             )}
           </div>
 

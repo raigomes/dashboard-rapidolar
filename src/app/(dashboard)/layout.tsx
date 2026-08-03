@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { Toaster } from "@/components/layout/toaster";
 import type { ProfileCargo } from "@/types/profile";
 import { createClient } from "@/utils/supabase/server";
 
@@ -31,8 +32,11 @@ export default async function DashboardLayout({
     (profile?.cargo as ProfileCargo | undefined) ?? "vendedor";
 
   return (
-    <DashboardShell profile={{ nome, email, cargo }}>
-      {children}
-    </DashboardShell>
+    <>
+      <DashboardShell profile={{ nome, email, cargo }}>
+        {children}
+      </DashboardShell>
+      <Toaster />
+    </>
   );
 }

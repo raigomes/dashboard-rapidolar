@@ -50,7 +50,7 @@ export function ClienteCombobox({
       />
       <PopoverContent align="start" className="w-(--anchor-width) p-0">
         <Command>
-          <CommandInput placeholder="Buscar cliente…" />
+          <CommandInput placeholder="Buscar cliente…" aria-label="Buscar cliente" />
           <CommandList>
             <CommandEmpty>Nenhum cliente encontrado.</CommandEmpty>
             <CommandGroup>

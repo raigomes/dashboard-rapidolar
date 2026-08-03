@@ -368,7 +368,7 @@ export function PedidoForm({
             </div>
           </div>
 
-          {erro && <p className="text-sm text-destructive">{erro}</p>}
+          {erro && <p role="alert" className="text-sm text-destructive">{erro}</p>}
 
           <DialogFooter>
             <Button
