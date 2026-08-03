@@ -3,6 +3,7 @@
 import {
   DollarSign,
   Minus,
+  PackageOpen,
   ShoppingCart,
   TrendingDown,
   TrendingUp,
@@ -73,6 +74,7 @@ export type MetricCardsProps = {
   faturamentoMes: MetricData;
   pedidosHoje: MetricData;
   ticketMedioMes: MetricData;
+  estoqueBaixo: MetricData;
 };
 
 export function MetricCards({
@@ -81,11 +83,12 @@ export function MetricCards({
   faturamentoMes,
   pedidosHoje,
   ticketMedioMes,
+  estoqueBaixo,
 }: MetricCardsProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
-        {Array.from({ length: 4 }).map((_, i) => (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6">
+        {Array.from({ length: 5 }).map((_, i) => (
           <Card key={i} className="rounded-xl p-4 shadow-sm md:p-6">
             <div className="space-y-3">
               <Skeleton className="h-4 w-24" />
@@ -99,7 +102,7 @@ export function MetricCards({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6">
       <MetricCard
         icon={DollarSign}
         label="Faturamento Hoje"
@@ -127,6 +130,13 @@ export function MetricCards({
         valor={ticketMedioMes.valor}
         format={formatCurrency}
         variacao={ticketMedioMes.variacao}
+      />
+      <MetricCard
+        icon={PackageOpen}
+        label="Estoque Baixo"
+        valor={estoqueBaixo.valor}
+        format={formatInteger}
+        variacao={estoqueBaixo.variacao}
       />
     </div>
   );

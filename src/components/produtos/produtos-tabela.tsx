@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { ESTOQUE_BAIXO_LIMITE, isEstoqueBaixo } from "@/lib/estoque";
 import { formatCategoria, formatCurrency, formatInteger } from "@/lib/format";
 import { toastError } from "@/lib/toast";
 import type { Produto } from "@/types/produto";
@@ -165,7 +166,18 @@ export function ProdutosTabela({
                         {formatCurrency(produto.preco)}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-right text-sm">
-                        {formatInteger(produto.estoque)}
+                        <div className="flex items-center justify-end gap-2">
+                          <span>{formatInteger(produto.estoque)}</span>
+                          {isEstoqueBaixo(produto.estoque) && (
+                            <Badge
+                              variant="outline"
+                              className="border-amber-300 bg-amber-100 text-amber-800"
+                              title={`Estoque baixo: até ${ESTOQUE_BAIXO_LIMITE} unidades`}
+                            >
+                              Estoque baixo
+                            </Badge>
+                          )}
+                        </div>
                       </TableCell>
                       {isAdmin && (
                         <TableCell className="px-4 py-3">

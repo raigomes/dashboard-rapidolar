@@ -4,6 +4,7 @@ import { MetricCards } from "@/components/dashboard/metric-cards";
 import { SalesChart } from "@/components/dashboard/sales-chart";
 import { TopClients } from "@/components/dashboard/top-clients";
 import { TopProducts } from "@/components/dashboard/top-products";
+import { ESTOQUE_BAIXO_LIMITE } from "@/lib/estoque";
 import { formatAtualizacao, toISODate } from "@/lib/format";
 import type { MetricData, TopClient, TopProduct } from "@/types/dashboard";
 import { createClient } from "@/utils/supabase/server";
@@ -53,6 +54,16 @@ async function countPedidos(
       ? query.eq("data", filter.eq)
       : query.gte("data", filter.gte).lte("data", filter.lte);
   const { count } = await filtered;
+  return count ?? 0;
+}
+
+async function countEstoqueBaixo(
+  supabase: ReturnType<typeof createClient>,
+): Promise<number> {
+  const { count } = await supabase
+    .from("produtos")
+    .select("*", { count: "exact", head: true })
+    .lte("estoque", ESTOQUE_BAIXO_LIMITE);
   return count ?? 0;
 }
 
@@ -145,6 +156,9 @@ export default async function DashboardPage() {
     pedidosOntem,
     pedidosMes,
     pedidosMesAnterior,
+    estoqueBaixo,
+    topProdutos,
+    topClientes,
   ] = await Promise.all([
     sumTotal(supabase, { eq: toISODate(today) }),
     sumTotal(supabase, { eq: toISODate(yesterday) }),
@@ -166,6 +180,9 @@ export default async function DashboardPage() {
       gte: toISODate(primeiroDiaMesAnterior),
       lte: toISODate(ultimoDiaMesAnterior),
     }),
+    countEstoqueBaixo(supabase),
+    fetchTopProdutos(supabase),
+    fetchTopClientes(supabase),
   ]);
 
   const ticketAtual = pedidosMes > 0 ? faturamentoMes / pedidosMes : 0;
@@ -177,6 +194,7 @@ export default async function DashboardPage() {
     faturamentoMes: MetricData;
     pedidosHoje: MetricData;
     ticketMedioMes: MetricData;
+    estoqueBaixo: MetricData;
   } = {
     faturamentoHoje: {
       valor: faturamentoHoje,
@@ -194,12 +212,11 @@ export default async function DashboardPage() {
       valor: ticketAtual,
       variacao: calcVariacao(ticketAtual, ticketAnterior),
     },
+    estoqueBaixo: {
+      valor: estoqueBaixo,
+      variacao: null,
+    },
   };
-
-  const [topProdutos, topClientes] = await Promise.all([
-    fetchTopProdutos(supabase),
-    fetchTopClientes(supabase),
-  ]);
 
   return (
     <div className="space-y-6">
