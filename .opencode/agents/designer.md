@@ -15,7 +15,7 @@ Consome o `PRD.md`, gera o protótipo/layout no Pencil.dev e exporta a especific
 
 Validação de arquivos `.pen` aprendida com falhas reais. Seguir sempre ao gerar/editar protótipos.
 
-### Formato REAL (pen.dev v2.14)
+### Formato REAL (pen.dev v2.15)
 
 O pen.dev **não aceita** o schema do analisador de terceiros `@narusenia/pencil-analyzer` (que espera `Stroke` struct e é mais estrito que o real). Usar um `.pen` exportado pelo editor real como template — ex.: `.impeccable/surfaces/**/*.pen`.
 
@@ -32,6 +32,7 @@ O pen.dev **não aceita** o schema do analisador de terceiros `@narusenia/pencil
 
 ### Erros que dão no pen.dev (e como evitar)
 
+0. **"Unsupported file format X.YZ" (erro real 2026-08-03)** → o campo `version` no topo do `.pen` é a versão do **FORMATO do arquivo**, não versão de design. O app Pen atual (v1.2.3, latest) aceita **apenas `2.15`** (`c.version !== VT` → erro). NUNCA bumpar esse campo ao evoluir o protótipo — iterar o design apenas no conteúdo (children/variables/refs) e versionar a iteração no `docs/DESIGN_SYSTEM.md`. Reverter para `2.15` se for alterado por engano.
 1. **"This node (X) is not accessible!"** → `descendants` **nunca pode sobrescrever o próprio nó raiz do componente** (o `ref` que o instancia). Só pode atingir nós filhos. Se precisa variar cor/estado do raiz, criar componentes separados por estado (ex.: Badge Pendente/Confirmado/Entregue/Cancelado) com cores embutidas em vez de override.
 2. **Elementos invisíveis / frames sobrepostos** → frames de página precisam de `width`/`height` explícitos e `x` posicionados **sem sobreposição**, com gap (ex.: 80px). Calcular `ends_at = x + width` de cada frame e garantir que o próximo começa após.
 3. **Formato inválido** → nunca inventar campos; conferir contra um `.pen` real. Não usar `@narusenia/pencil-analyzer` como validador definitivo (schema diferente).
