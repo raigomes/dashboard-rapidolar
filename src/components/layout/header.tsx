@@ -6,7 +6,6 @@ import { MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SheetTrigger } from "@/components/ui/sheet";
 
-import { Logo } from "@/components/layout/logo";
 import { UserNav } from "@/components/layout/user-nav";
 
 const TITLES: Record<string, string> = {
@@ -36,7 +35,6 @@ export function Header({ nome, email }: { nome: string; email: string }) {
       >
         <MenuIcon className="size-5" />
       </SheetTrigger>
-      <Logo size="sm" href="/dashboard" className="hidden md:inline" />
       <h1 className="text-base font-semibold">{title}</h1>
       <div className="ml-auto">
         <UserNav nome={nome} email={email} />
