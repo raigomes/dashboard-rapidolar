@@ -4282,6 +4282,449 @@
     },
     {
       "type": "frame",
+      "id": "LndPg",
+      "name": "Landing Page",
+      "width": 1440,
+      "height": 1396,
+      "fill": "$bg",
+      "layout": "vertical",
+      "clip": true,
+      "children": [
+        {
+          "type": "frame",
+          "id": "Ld100",
+          "name": "Nav",
+          "width": "fill_container",
+          "height": 72,
+          "fill": "$card",
+          "stroke": "$border",
+          "strokeWidth": 1,
+          "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            64
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ld101",
+              "name": "LogoRow",
+              "layout": "horizontal",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "Ld102",
+                  "name": "LogoMark",
+                  "fill": "$brand",
+                  "width": 16,
+                  "height": 16,
+                  "cornerRadius": 4
+                },
+                {
+                  "type": "text",
+                  "id": "Ld103",
+                  "name": "Logo",
+                  "content": "RapidoLar",
+                  "fill": "$fg",
+                  "fontFamily": "Inter",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ld104",
+              "name": "Spacer",
+              "width": "fill_container"
+            },
+            {
+              "type": "ref",
+              "id": "Ld105",
+              "ref": "qV94Q",
+              "name": "BtnEntrarNav",
+              "width": 120,
+              "descendants": {
+                "ocDcc": {
+                  "content": "Entrar"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ld110",
+          "name": "Hero",
+          "width": "fill_container",
+          "height": 380,
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            48,
+            64
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ld111",
+              "name": "Badge",
+              "width": 380,
+              "height": 30,
+              "fill": "$secondary",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 15,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Ld112",
+                  "name": "BadgeText",
+                  "content": "Para distribuidoras de limpeza e descartáveis",
+                  "fill": "$secondaryfg",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Ld113",
+              "name": "Title",
+              "content": "Vendas da RapidoLar em um só painel",
+              "fill": "$fg",
+              "width": 900,
+              "textAlign": "center",
+              "textGrowth": "fixed-width",
+              "fontFamily": "Inter",
+              "fontSize": 44,
+              "fontWeight": "700",
+              "lineHeight": 1.12
+            },
+            {
+              "type": "text",
+              "id": "Ld114",
+              "name": "Subtitle",
+              "content": "Acompanhe faturamento, produtos, clientes e pedidos — e exporte relatórios em PDF com poucos cliques.",
+              "fill": "$muted",
+              "width": 620,
+              "textAlign": "center",
+              "textGrowth": "fixed-width",
+              "fontFamily": "Inter",
+              "fontSize": 17,
+              "fontWeight": "400",
+              "lineHeight": 1.5
+            },
+            {
+              "type": "frame",
+              "id": "Ld115",
+              "name": "CtaRow",
+              "layout": "horizontal",
+              "gap": 12,
+              "alignItems": "center",
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "ref",
+                  "id": "Ld116",
+                  "ref": "qV94Q",
+                  "name": "BtnEntrarHero",
+                  "width": 200,
+                  "height": 48,
+                  "descendants": {
+                    "ocDcc": {
+                      "content": "Entrar no painel"
+                    }
+                  }
+                },
+                {
+                  "type": "ref",
+                  "id": "Ld117",
+                  "ref": "joEV9",
+                  "name": "BtnConhecer",
+                  "width": 200,
+                  "height": 48,
+                  "descendants": {
+                    "Trk3Z": {
+                      "content": "Conhecer o painel"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ld120",
+          "name": "Features",
+          "width": "fill_container",
+          "height": 600,
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            48,
+            64
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Ld121",
+              "name": "SectionTitle",
+              "content": "Tudo o que sua distribuidora precisa",
+              "fill": "$fg",
+              "width": "fill_container",
+              "textAlign": "center",
+              "textGrowth": "fixed-width",
+              "fontFamily": "Inter",
+              "fontSize": 30,
+              "fontWeight": "700",
+              "lineHeight": 1.2
+            },
+            {
+              "type": "text",
+              "id": "Ld122",
+              "name": "SectionSub",
+              "content": "Do controle de estoque à exportação de relatórios em PDF.",
+              "fill": "$muted",
+              "width": "fill_container",
+              "textAlign": "center",
+              "textGrowth": "fixed-width",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 1.4
+            },
+            {
+              "type": "frame",
+              "id": "Ld123",
+              "name": "Row1",
+              "width": "fill_container",
+              "layout": "horizontal",
+              "gap": 16,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "ref",
+                  "id": "Ld124",
+                  "ref": "FXcRd",
+                  "name": "Feat Dashboard",
+                  "width": 420,
+                  "descendants": {
+                    "Ld2c1": {
+                      "content": "layout-dashboard"
+                    },
+                    "Ld2c2": {
+                      "content": "Dashboard"
+                    },
+                    "Ld2c3": {
+                      "content": "Métricas de faturamento, pedidos e ticket médio em tempo real."
+                    }
+                  }
+                },
+                {
+                  "type": "ref",
+                  "id": "Ld125",
+                  "ref": "FXcRd",
+                  "name": "Feat Produtos",
+                  "width": 420,
+                  "descendants": {
+                    "Ld2c1": {
+                      "content": "package"
+                    },
+                    "Ld2c2": {
+                      "content": "Produtos"
+                    },
+                    "Ld2c3": {
+                      "content": "Catálogo completo com controle de preço, estoque e categorias."
+                    }
+                  }
+                },
+                {
+                  "type": "ref",
+                  "id": "Ld126",
+                  "ref": "FXcRd",
+                  "name": "Feat Clientes",
+                  "width": 420,
+                  "descendants": {
+                    "Ld2c1": {
+                      "content": "users"
+                    },
+                    "Ld2c2": {
+                      "content": "Clientes"
+                    },
+                    "Ld2c3": {
+                      "content": "Cadastro, contato e histórico de compras de cada cliente."
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ld127",
+              "name": "Row2",
+              "width": "fill_container",
+              "layout": "horizontal",
+              "gap": 16,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "ref",
+                  "id": "Ld128",
+                  "ref": "FXcRd",
+                  "name": "Feat Pedidos",
+                  "width": 420,
+                  "descendants": {
+                    "Ld2c1": {
+                      "content": "shopping-cart"
+                    },
+                    "Ld2c2": {
+                      "content": "Pedidos"
+                    },
+                    "Ld2c3": {
+                      "content": "Registre pedidos com itens dinâmicos, status e total automático."
+                    }
+                  }
+                },
+                {
+                  "type": "ref",
+                  "id": "Ld129",
+                  "ref": "FXcRd",
+                  "name": "Feat Relatórios",
+                  "width": 420,
+                  "descendants": {
+                    "Ld2c1": {
+                      "content": "file-text"
+                    },
+                    "Ld2c2": {
+                      "content": "Relatórios"
+                    },
+                    "Ld2c3": {
+                      "content": "Gere relatórios do período e exporte em PDF para a equipe."
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ld130",
+          "name": "CtaSection",
+          "width": "fill_container",
+          "height": 280,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            32,
+            64
+          ],
+          "alignItems": "center",
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ld131",
+              "name": "CtaCard",
+              "width": 1152,
+              "fill": "$brand",
+              "layout": "vertical",
+              "gap": 14,
+              "padding": [
+                40,
+                48
+              ],
+              "alignItems": "center",
+              "cornerRadius": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Ld132",
+                  "name": "CtaTitle",
+                  "content": "Pronto para organizar suas vendas?",
+                  "fill": "#ffffff",
+                  "width": "fill_container",
+                  "textAlign": "center",
+                  "textGrowth": "fixed-width",
+                  "fontFamily": "Inter",
+                  "fontSize": 26,
+                  "fontWeight": "700",
+                  "lineHeight": 1.3
+                },
+                {
+                  "type": "text",
+                  "id": "Ld133",
+                  "name": "CtaSub",
+                  "content": "Acesse o painel e veja os números da RapidoLar em minutos.",
+                  "fill": "#ffffff",
+                  "opacity": 0.85,
+                  "width": "fill_container",
+                  "textAlign": "center",
+                  "textGrowth": "fixed-width",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "400",
+                  "lineHeight": 1.5
+                },
+                {
+                  "type": "ref",
+                  "id": "Ld134",
+                  "ref": "BTNLt",
+                  "name": "BtnCta",
+                  "width": 220,
+                  "height": 48,
+                  "descendants": {
+                    "Ld2d1": {
+                      "content": "Entrar no painel"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ld140",
+          "name": "Footer",
+          "width": "fill_container",
+          "height": 64,
+          "layout": "horizontal",
+          "alignItems": "center",
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Ld141",
+              "name": "FooterText",
+              "content": "© 2026 RapidoLar · Sistema de gestão",
+              "fill": "$muted",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "400"
+            }
+          ]
+        }
+      ],
+      "x": 8480,
+      "y": 0,
+      "x0": 5280
+    },
+    {
+      "type": "frame",
       "id": "acuiq",
       "name": "Nav Item",
       "width": 224,
@@ -6787,6 +7230,117 @@
       ],
       "x": 1280,
       "y": 2180
+    },
+    {
+      "type": "frame",
+      "id": "FXcRd",
+      "name": "Feature Card",
+      "width": 420,
+      "height": 160,
+      "fill": "$card",
+      "stroke": "$border",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 10,
+      "padding": [
+        20,
+        20
+      ],
+      "cornerRadius": 8,
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#0000000d",
+        "offset": {
+          "x": 0,
+          "y": 1
+        },
+        "blur": 2
+      },
+      "reusable": true,
+      "children": [
+        {
+          "type": "frame",
+          "id": "Ld2a1",
+          "name": "IconBox",
+          "width": 40,
+          "height": 40,
+          "fill": "$secondary",
+          "layout": "horizontal",
+          "alignItems": "center",
+          "justifyContent": "center",
+          "cornerRadius": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "Ld2c1",
+              "name": "Icon",
+              "content": "layout-dashboard",
+              "fill": "$secondaryfg",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "600",
+              "textAlign": "center",
+              "textAlignVertical": "middle",
+              "lineHeight": 1.4
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "Ld2c2",
+          "name": "FeatTitle",
+          "content": "Dashboard",
+          "fill": "$fg",
+          "fontFamily": "Inter",
+          "fontSize": 16,
+          "fontWeight": "600",
+          "lineHeight": 1.3
+        },
+        {
+          "type": "text",
+          "id": "Ld2c3",
+          "name": "FeatDesc",
+          "content": "Descrição da funcionalidade.",
+          "fill": "$muted",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "lineHeight": 1.5
+        }
+      ],
+      "x": 40,
+      "y": 2400
+    },
+    {
+      "type": "frame",
+      "id": "BTNLt",
+      "name": "Button Light",
+      "width": 200,
+      "height": 48,
+      "fill": "#FFFFFF",
+      "layout": "horizontal",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "cornerRadius": 8,
+      "reusable": true,
+      "children": [
+        {
+          "type": "text",
+          "id": "Ld2d1",
+          "name": "BtnText",
+          "content": "Entrar",
+          "fill": "$brand",
+          "textAlign": "center",
+          "textAlignVertical": "middle",
+          "fontFamily": "Inter",
+          "fontSize": 15,
+          "fontWeight": "600",
+          "lineHeight": 1.4
+        }
+      ],
+      "x": 520,
+      "y": 2400
     }
   ],
   "variables": {
@@ -6861,6 +7415,14 @@
     "canccfg": {
       "type": "color",
       "value": "#991B1B"
+    },
+    "secondary": {
+      "type": "color",
+      "value": "#F0FDFA"
+    },
+    "secondaryfg": {
+      "type": "color",
+      "value": "#134E4A"
     }
   },
   "fileToken": "d94d6b0b-360d-46a0-a72f-ce443b724018"

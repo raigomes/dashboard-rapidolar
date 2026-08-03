@@ -1,8 +1,8 @@
 # Tasks — Dashboard de Vendas RapidoLar
 
 > **Gerado pelo Owner.** Tarefas ordenadas por dependência.
-> **Total:** 27 tarefas em 6 fases (Phase -1 a Phase 4)
-> **Atualizado:** 2026-08-02 — migração e seed concluídos; Phase 0 parcialmente feita; novo hotfix 0.0 (page.tsx).
+> **Total:** 29 tarefas em 7 fases (Phase -1 a Phase 4)
+> **Atualizado:** 2026-08-02 — Phase 4 delegada ao Coder (T4.1 parcial, T4.2, T4.5, T4.6) + nova tarefa Designer T4.7 (frame Landing Page quebrado); hotfix 0.0 (page.tsx) e hotfix 0.1 (selects exibindo value cru) concluídos.
 
 ---
 
@@ -424,8 +424,14 @@
 
 ## Phase 4 — Reports & Polish
 
+> **Estado (2026-08-02):** ✅ Phase 4 **APROVADA** (commit `023abc8`, revalidação Reviewer em `docs/failures/phase-4.md`) — T4.1, T4.2, T4.5 e T4.6 pelo Coder; T4.7 (fix frame Landing Page + CtaCard) pelo Designer. 3 nits opcionais aceitos para MVP (§3.0 nav CTA `size=lg` vs `md`, features com `flex-wrap` vs grid, preview `p-4 md:p-6`). Fast-follows aplicados: T4.3 (chart desktop 350px) e T4.4 (toast erro 6s via `src/lib/toast.ts`). **Projeto concluído** — todas as 7 fases (Phase -1 a Phase 4) validadas.
+>
+> **Hotfix 0.1 (2026-08-02, commit `be5d311`):** `SelectValue` do base-ui renderizava o value cru (UUID de produto / status cru) quando o popup de itens ainda não estava montado (lazy) — exibindo o id do item no modal de pedidos. Corrigido com children function do `SelectValue` em 5 pontos (pedido-form, pedidos-filtros, produto-form). Bug extra: seed gravava categorias capitalizadas (`"Limpeza"`) mas app valida minúsculo (`limpeza`) — corrigido no seed + migration `00003_normaliza_categoria_produto.sql` (aplicada no banco via SQL Editor).
+
 ### Task 4.1: Reports Page with PDF Export
 
+- **Status:** ✅ Concluída (2026-08-02, commit `023abc8`) — rota `/relatorios` presente no build (ƒ dinâmica)
+- **Agent:** Coder
 - **Dependencies:** T1.3, T0.5
 - **Files affected:**
   - `src/app/(dashboard)/relatorios/page.tsx`
@@ -444,6 +450,7 @@
 
 ### Task 4.2: Error & Loading States
 
+- **Status:** ✅ Concluída (2026-08-02, commit `023abc8`) — `not-found.tsx`, `error.tsx`, 4× `loading.tsx` criados
 - **Dependencies:** T1.3, T2.5, T3.1, T3.2, T3.3
 - **Files affected:**
   - `src/app/not-found.tsx` (404 global)
@@ -497,6 +504,7 @@
 
 ### Task 4.5: Final TypeScript & Lint Pass
 
+- **Status:** ✅ Concluída (2026-08-02, commit `023abc8`) — tsc 0 erros, lint 0 warnings
 - **Dependencies:** T0.1 a T4.4 (tudo)
 - **Files affected:** Todos os arquivos `.ts` e `.tsx`
 - **Acceptance criteria:**
@@ -508,14 +516,52 @@
 - **Description:**
   Revisão final. Rodar `npx tsc --noEmit` e corrigir todos os erros de tipo. Rodar `npm run lint` e corrigir warnings. Verificar que todos os componentes são strict typed. Garantir que não há `console.log` esquecidos.
 
+### Task 4.6: Root Page — Landing → Login (Designer + Coder)
+
+- **Status:** ✅ Implementada (2026-08-02, commit `023abc8`) — aguardando validação do Reviewer; frame `LndPg` corrigido na T4.7 (Designer)
+- **Agent:** Designer (especificação visual em `docs/DESIGN_SYSTEM.md` + protótipo Pencil.dev) → Coder (implementação)
+- **Dependencies:** T0.5 (UI components), T1.2 (login existe), T4.7 (fix do frame pelo Designer, não bloqueia implementação — DESIGN_SYSTEM.md §3.0 é a fonte de verdade)
+- **Files affected:**
+  - Designer: `docs/DESIGN_SYSTEM.md` (seção §3.0 Página Raiz — já criada v1.1), `docs/layout/dashboard.pen` (ver T4.7)
+  - Coder: `src/app/page.tsx`
+- **Acceptance criteria:**
+  - Página raiz (`/`) é uma landing atrativa da RapidoLar (não mais o placeholder "em construção")
+  - Apresenta o produto: título, subtítulo, destaque de funcionalidades (dashboard, produtos, clientes, pedidos, relatórios)
+  - CTA primário "Entrar" leva para `/login`
+  - Sem sidebar/header do shell; página pública e leve
+  - Responsivo: mobile e desktop
+  - Segue paleta, tipografia e tokens do `DESIGN_SYSTEM.md` (§1, §2)
+  - `npx tsc --noEmit` e `npm run lint` passam
+- **Description:**
+  A raiz `src/app/page.tsx` hoje é um placeholder mínimo ("Painel de vendas em construção"). O Designer definiu o wireframe/layout da landing na seção §3.0 do DESIGN_SYSTEM.md (análogo ao §3.1 do login), e o Coder implementa seguindo a especificação — **ignorar os ícones emoji do frame no `dashboard.pen` (quebrado); usar os ícones Lucide do mapeamento §6** (LayoutDashboard, Package, Users, ShoppingCart, FileText). Middleware já redireciona autenticados para `/dashboard`, então a landing é exibida apenas para visitantes não autenticados.
+
+### Task 4.7: Fix Landing Page Frame (Designer) 🔧
+
+- **Status:** ✅ Concluída (2026-08-02) — frame `LndPg` corrigido em 2 rodadas: (1) emoji→rótulos Lucide kebab nos Feature Cards, refs/descendants validados; (2) **CtaCard** `width: fill_container`→`1152` (max-w-6xl centralizada, não cobre mais a tela) + `CtaTitle`/`CtaSub` com `width: fill_container` (fim da quebra "letra embaixo da outra"). DESIGN_SYSTEM.md bumped p/ v1.3
+- **Agent:** Designer
+- **Dependencies:** T4.6 (spec §3.0 já criada — validar alinhamento)
+- **Files affected:**
+  - `docs/layout/dashboard.pen` (frame `LndPg` + componentes reutilizáveis `FXcRd` Feature Card e `BTNLt` Button Light)
+  - `docs/DESIGN_SYSTEM.md` (seção §3.0 — ajustar se necessário após correção)
+- **Acceptance criteria:**
+  - Frame `LndPg` (Landing Page) do `dashboard.pen` renderiza sem elementos quebrados (refs válidos, descendants sobrepondo texto corretamente)
+  - Ícones dos Feature Cards usam o **mapeamento Lucide da §6** (LayoutDashboard, Package, Users, ShoppingCart, FileText) — hoje usam emoji (📊📦👥🛒📄) como texto, divergente da spec §3.0
+  - Estrutura de grid confere com §3.0: 3 cards na 1ª linha + 2 centralizados na 2ª (`Row1`/`Row2` com `justifyContent=center`), icon box `h-10 w-10` com `$secondary`
+  - CTA band (`$brand`), Nav (`h-72`), Hero e Footer alinhados ao wireframe §3.0
+  - `dashboard.pen` continua um JSON válido (parseável) e as variáveis `$secondary`/`$secondaryfg` declaradas
+- **Description:**
+  O frame "Landing Page" (`LndPg`) adicionado em v1.1 do protótipo contém elementos quebrados: o componente reutilizável `FXcRd` (Feature Card) renderiza o ícone como **texto emoji** (`📊`) em vez de ícone Lucide, divergindo do `DESIGN_SYSTEM.md` §3.0/§6; verificar também que todos os `descendants` dos refs (`Ld105`, `Ld116`, `Ld117`, `Ld124`-`Ld129`, `Ld134`) apontam para ids existentes dentro dos componentes referenciados (`qV94Q`, `joEV9`, `FXcRd`, `BTNLt`) e que os textos de override (título/descrição dos cards, botões) renderizam corretamente por instância. Corrigir no `dashboard.pen` e, se necessário, ajustar a §3.0 do `DESIGN_SYSTEM.md` para refletir o que foi corrigido.
+
 ---
 
 ### 🔍 Reviewer Validation — Phase 4
 
-- **Dependencies:** All tasks in Phase 4
+- **Dependencies:** All tasks in Phase 4 (T4.1, T4.2, T4.3, T4.4, T4.5, T4.6, T4.7)
 - **Agent:** Reviewer
 - **Checks:**
   - `npx tsc --noEmit` passes
   - `npm run lint` passes
   - Layout matches `DESIGN_SYSTEM.md` (visual comparison)
 - **On failure:** Log to `docs/failures/phase-4.md`
+
+> **Estado (2026-08-02):** ✅ **APROVADO** — revalidação executada sobre o commit `023abc8` (ver `docs/failures/phase-4.md`). tsc 0 erros, lint 0 warnings, build PASS com rota `/relatorios`; 404 customizado confirmado em runtime; landing `/` conforme §3.0 (ícones Lucide, zero emoji); nits T4.3/T4.4 corrigidos. 3 nits opcionais aceitos (nav CTA `size=lg` vs `md`, features `flex-wrap` vs grid, preview `p-4 md:p-6`). Nenhuma falha bloqueante.

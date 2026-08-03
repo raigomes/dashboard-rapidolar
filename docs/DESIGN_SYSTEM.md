@@ -1,8 +1,11 @@
 # Design System — RapidoLar Dashboard
 
 > **Gerado pelo Designer (Pencil.dev).** Especificação visual para implementação.
-> **Versão:** 1.0
-> **Data:** 2026-07-30
+> **Versão:** 1.3
+> **Data:** 2026-08-02
+> **Changelog v1.3:** correção T4.7 (2ª rodada) no frame `LndPg` do `dashboard.pen` — `Ld131` (CtaCard) com `width: 1152` (antes `fill_container`, que esticava a banda `$brand` por toda a tela; agora equivale a `max-w-6xl mx-auto` da §3.0) e textos `Ld132`/`Ld133` (CtaTitle/CtaSub) com `width: fill_container` (antes sem `width` + `textGrowth: fixed-width`, que quebrava cada caractere em linha própria). §3.0 atualizada com nota.
+> **Changelog v1.2:** correção T4.7 no frame `LndPg` (Landing) do `dashboard.pen` — ícones dos Feature Cards deixaram de ser emoji (📊📦👥🛒📄) e passaram a usar rótulos Lucide kebab-case (`layout-dashboard`, `package`, `users`, `shopping-cart`, `file-text`) no componente `FXcRd` e nas 5 instâncias; wireframe §3.0 atualizado com os rótulos; refs/descendants de `LndPg` auditados e validados (nenhum self-override; todos os overrides resolvem para ids existentes — ver validação da T4.7).
+> **Changelog v1.1:** nova §3.0 (Página Raiz `/` — Landing) + protótipo `dashboard.pen` atualizado (página Landing + componentes reutilizáveis Feature Card / Button Light + variáveis `secondary`/`secondaryfg`).
 > **Framework:** Tailwind CSS v4 · Next.js 16 · shadcn/ui
 
 ---
@@ -29,6 +32,7 @@
    - 2.10 [Empty States](#210-empty-states)
    - 2.11 [Toast / Sonner](#211-toast--sonner)
 3. [Page Layouts](#3-page-layouts)
+   - 3.0 [`/` — Landing](#30---landing)
    - 3.1 [`/login` — Autenticação](#31-login--autenticação)
    - 3.2 [`/dashboard` — Métricas & Gráficos](#32-dashboard--métricas--gráficos)
    - 3.3 [`/produtos` — CRUD Produtos](#33-produtos--crud-produtos)
@@ -451,6 +455,89 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 ---
 
 ## 3. Page Layouts
+
+### 3.0 `/` — Landing (Página Raiz)
+
+**Layout:** Página pública, sem sidebar/header do shell. Exibida apenas para visitantes **não autenticados** (o middleware redireciona sessões ativas para `/dashboard`). Estrutura leve e em scroll vertical, com mini-nav própria no topo. Todos os CTAs ("Entrar" / "Entrar no painel") apontam para `/login`.
+
+```
+┌────────────────────────────────────────────────────┐
+│ [▪ RapidoLar]                        [ Entrar ]   │  ← Nav (h-18, bg-card, border-b)
+├────────────────────────────────────────────────────┤
+│                                                    │
+│        ( Para distribuidoras de limpeza... )       │  ← Badge pill (bg-secondary)
+│      Vendas da RapidoLar em um só painel          │  ← Hero title (text-4xl/5xl)
+│   Acompanhe faturamento, produtos, clientes e     │
+│   pedidos — e exporte relatórios em PDF.          │  ← Hero subtitle
+│                                                    │
+│    [ Entrar no painel ]  [ Conhecer o painel ]    │  ← CTA row (primary + outline)
+│                                                    │
+├────────────────────────────────────────────────────┤
+│     Tudo o que sua distribuidora precisa          │  ← Section title (text-3xl)
+│                                                    │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐    │
+│  │ layout-      │ │ package      │ │ users        │    │
+│  │ dashboard    │ │              │ │              │    │
+│  │ Dashboard    │ │ Produtos     │ │ Clientes     │    │  ← Grid features (desktop 3+2)
+│  │ métricas     │ │ catálogo     │ │ cadastro     │    │    cards rounded-lg shadow-sm
+│  └──────────────┘ └──────────────┘ └──────────────┘    │
+│  ┌──────────────┐ ┌──────────────┐                      │
+│  │ shopping-    │ │ file-text    │                      │
+│  │ cart         │ │              │                      │
+│  │ Pedidos      │ │ Relatórios   │                      │  ← 2 cards centralizados
+│  └──────────────┘ └──────────────┘                      │
+│                                                    │
+│  ┌────────────────────────────────────────────┐   │
+│  │   Pronto para organizar suas vendas?       │   │  ← CTA band (bg-primary)
+│  │   Acesse o painel e veja os números...     │   │    rounded-xl
+│  │        [ Entrar no painel ]                │   │    botão branco
+│  └────────────────────────────────────────────┘   │
+│                                                    │
+│  © 2026 RapidoLar · Sistema de gestão              │  ← Footer (text-xs muted)
+└────────────────────────────────────────────────────┘
+```
+
+| Elemento           | Especificação                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Container**      | `min-h-screen bg-background` — página pública, fora do grupo `(dashboard)`                                       |
+| **Nav (topo)**     | `h-18 flex items-center justify-between px-6 md:px-10 border-b border-border bg-card`. Logo = mark `h-4 w-4 bg-primary rounded-md` + texto "RapidoLar" `text-2xl font-bold tracking-tight` |
+| **Nav CTA**        | `Button` "Entrar" (size `md`) → `Link href="/login"`                                                             |
+| **Hero**           | `flex flex-col items-center text-center px-4 py-16 md:py-24`                                                      |
+| **Badge hero**     | pill: `inline-flex items-center rounded-full bg-secondary text-secondary-foreground text-xs font-medium px-4 py-1.5` — "Para distribuidoras de limpeza e descartáveis" |
+| **Hero título**    | `text-4xl md:text-5xl font-bold tracking-tight text-foreground max-w-3xl` — escala de hero (extensão da §1.2, ver nota) |
+| **Hero subtítulo** | `mt-4 text-base md:text-lg text-muted-foreground max-w-xl`                                                        |
+| **CTA row**        | `flex flex-col sm:flex-row items-center justify-center gap-3 mt-8`                                                |
+| **CTA primário**   | `Button size="lg"` "Entrar no painel" → `Link href="/login"` (primary)                                            |
+| **CTA secundário** | `Button variant="outline" size="lg"` "Conhecer o painel" → âncora `#funcionalidades`                             |
+| **Seção features** | `py-16 md:py-24 px-4` com `id="funcionalidades"`; título `text-3xl font-bold text-center` + subtítulo `text-sm md:text-base text-muted-foreground text-center mt-2` |
+| **Grid features**  | `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto` — 5 cards; última linha com 2 cards centralizados |
+| **Feature card**   | `Card rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow` (tokens §2.2; hover 150ms conforme §9)          |
+| **Icon box**       | `h-10 w-10 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center` + ícone Lucide `h-5 w-5` |
+| **Card título**    | `mt-4 text-lg font-semibold text-card-foreground`                                                                 |
+| **Card descrição** | `mt-2 text-sm text-muted-foreground`                                                                              |
+| **CTA final**      | banda `rounded-xl bg-primary py-10 md:py-12 px-6 text-center` dentro de `max-w-6xl mx-auto` — no protótipo `dashboard.pen`: `Ld131` (CtaCard) com `width: 1152` (equivale a `max-w-6xl`), centralizado pelo pai `CtaSection` com `alignItems: center`; textos `Ld132`/`Ld133` com `width: fill_container` (sem isso + `textGrowth: fixed-width`, o motor quebra cada caractere em linha própria) |
+| **CTA final título** | `text-2xl md:text-3xl font-bold text-primary-foreground`                                                        |
+| **CTA final sub**  | `mt-2 text-primary-foreground/80`                                                                                 |
+| **CTA final botão**| `mt-6` botão branco — variante landing: `bg-background text-primary hover:bg-background/90` (usa tokens existentes; não há variante branca na §2.1) |
+| **Footer**         | `py-8 text-center text-xs text-muted-foreground` — "© 2026 RapidoLar · Sistema de gestão"                         |
+
+**Ícones (Lucide, reutilizar mapeamento da §6):** Dashboard `LayoutDashboard`, Produtos `Package`, Clientes `Users`, Pedidos `ShoppingCart`, Relatórios `FileText` — `h-5 w-5` dentro do icon box `h-10 w-10` (decorativos, `aria-hidden="true"`). No protótipo `dashboard.pen` o ícone é representado pelo rótulo kebab-case (`layout-dashboard`, `package`, `users`, `shopping-cart`, `file-text`) por limitação do formato Pencil.dev v2.14 (que não suporta referência direta a Lucide) — na implementação usar o componente Lucide PascalCase correspondente.
+
+> **Nota — Escala de hero (extensão da §1.2):** A landing é a única página com tipografia de marketing. O hero usa a **mesma** fonte Inter (variable `--font-inter`) e o mesmo tracking `tracking-tight` da escala existente, apenas com tamanhos maiores: `text-4xl` (2.25rem) em mobile e `text-5xl` (3rem) em desktop. Não introduz nova família, peso ou tracking fora do sistema.
+
+**Responsivo:**
+
+| Viewport              | Comportamento                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| **Desktop (≥1024px)** | Nav `justify-between`; hero centralizado; grid features `lg:grid-cols-3` (3 cards na 1ª linha + 2 centralizados na 2ª); CTA band com botão inline |
+| **Tablet (640–1024px)** | Grid features `sm:grid-cols-2` (linhas 2+2+1; último card centralizado)                          |
+| **Mobile (<640px)**   | Tudo empilhado: CTA row vira coluna (`flex-col`), grid `grid-cols-1`, hero `py-16`, botões do CTA final `w-full` |
+
+**Motion (alinhado à §9):**
+- **Um momento autorado por página:** animação de entrada `fade-up` no título + subtítulo do hero ao carregar (300ms, `cubic-bezier(0.4, 0, 0.2, 1)`). Demais seções sem animação de entrada.
+- **Feature cards:** `transition-shadow` 150ms `ease-in-out` — hover eleva `shadow-sm` → `shadow-md` (sem transform, sem `transition-all`).
+- **Botões:** `active:scale-[0.97]` 100ms (padrão §2.1); hover `bg-primary/90` (primário) e `bg-background/90` (botão branco da banda).
+- **Reduced motion:** respeitar `prefers-reduced-motion: reduce` — remover o fade-up do hero (bloco CSS da §9).
 
 ### 3.1 `/login` — Autenticação
 
