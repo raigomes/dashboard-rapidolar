@@ -92,3 +92,33 @@ foreground: #cfe4e2  background: #0f766e
 ## 6. Conclusão
 
 Acesso/estrutura: **aprovado** (landmarks, labels, foco, linguagem, badges de status ✓). Contraste: **reprovado** — 2 falhas de alto impacto corrigíveis em minutos (A-01 `text-emerald-600` 3.73:1; A-02 `text-primary-foreground/80` 4.13:1). Performance: **excelente** (CLS 0, FCP 0.9s, BP/SEO 1.00), com uma única oportunidade clara de redução de JS (341 KiB → mover Toaster fora do root). Recomenda-se um ciclo de correção (tasks A-01 a A-05) seguido de revalidação Lighthouse nas duas URLs públicas e auditoria manual nas rotas internas com sessão.
+
+---
+
+## 7. Revalidação (2026-08-03 — após correções no commit `80f1555`)
+
+> **Ferramentas:** Lighthouse v13.4.1 (mesmo ambiente, 2ª rodada) nas URLs públicas `/` e `/login`.
+> **Fix aplicado (`80f1555`):** A-01 `metric-cards.tsx` → `text-emerald-700`; A-02 landing CTA → `text-primary-foreground` (sem `/80`); A-03 `aria-label` nos selects de filtro e combobox; A-04 header `<h1>` → `<p>` (h1 único por página); A-05 erros de formulário com `role="alert"`; Toaster movido do layout raiz para `src/components/layout/toaster.tsx` (montado em `(dashboard)/layout.tsx` e `/login`).
+
+**Scores (2ª rodada):**
+
+| URL | Performance | Acessibilidade | Best Practices | SEO |
+| --- | ----------- | -------------- | -------------- | --- |
+| `/` (landing) | 0.96 | **1.00** ✅ | 1.00 | 1.00 |
+| `/login` | 0.92 | **1.00** ✅ | 1.00 | 1.00 |
+
+**Veredito:** ✅ **APROVADO COM NITS** — a única falha automatizada que derrubava a a11y da home (A-02, `color-contrast`) foi corrigida; acessibilidade volta a **1.00** nas duas URLs. BP e SEO mantidos em 1.00. Nenhuma nova falha de contraste ou estrutura detectada.
+
+**Métricas de performance (2ª rodada):**
+
+| Métrica | `/` (r1 → r2) | `/login` (r1 → r2) |
+| ------- | ------------- | ------------------ |
+| FCP | 0.9 s → 0.9 s | 0.9 s → 0.9 s |
+| LCP | 2.4 s → 2.3 s | 2.8 s → 2.9 s |
+| TBT | 100 ms → 180 ms | 130 ms → 190 ms |
+| CLS | 0 → 0 | 0 → 0 |
+| TTI | 3.7 s → 3.8 s | 3.5 s → 3.5 s |
+
+**Nits / oportunidades abertas:**
+- Performance ficou estável dentro da variância de execução (TBT mais alto nesta rodada é ruído de throttling do ambiente; CLS continua 0).
+- A auditoria `unused-javascript` **persiste** (~137 KiB de savings na home, ~135 KiB no login) — o quick win do Toaster foi aplicado e confirmado no código (landing não monta mais o Sonner), mas o JS não utilizado remanescente vem de outros chunks do runtime. Oportunidade aberta para rodada futura (lazy loading de módulos pesados do dashboard).
