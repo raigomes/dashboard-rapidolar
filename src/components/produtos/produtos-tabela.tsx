@@ -155,19 +155,8 @@ export function ProdutosTabela({
                   produtos.map((produto) => (
                     <TableRow key={produto.id} className="border-b hover:bg-muted/30">
                       <TableCell className="px-4 py-3 text-sm font-medium">
-                        {produto.nome}
-                      </TableCell>
-                      <TableCell className="px-4 py-3">
-                        <Badge variant="outline" className="text-xs">
-                          {formatCategoria(produto.categoria)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-right text-sm">
-                        {formatCurrency(produto.preco)}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-right text-sm">
-                        <div className="flex items-center justify-end gap-2">
-                          <span>{formatInteger(produto.estoque)}</span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span>{produto.nome}</span>
                           {isEstoqueBaixo(produto.estoque) && (
                             <Badge
                               variant="outline"
@@ -178,6 +167,17 @@ export function ProdutosTabela({
                             </Badge>
                           )}
                         </div>
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        <Badge variant="outline" className="text-xs">
+                          {formatCategoria(produto.categoria)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-right text-sm">
+                        {formatCurrency(produto.preco)}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-right text-sm">
+                        {formatInteger(produto.estoque)}
                       </TableCell>
                       {isAdmin && (
                         <TableCell className="px-4 py-3">
