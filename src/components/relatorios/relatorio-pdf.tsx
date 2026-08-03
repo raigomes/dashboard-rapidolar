@@ -3,7 +3,10 @@
 import {
   Document,
   Page,
+  Path,
+  Rect,
   StyleSheet,
+  Svg,
   Text,
   View,
 } from "@react-pdf/renderer";
@@ -38,11 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: TEAL,
     alignItems: "center",
     justifyContent: "center",
-  },
-  logoText: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontFamily: "Helvetica-Bold",
   },
   title: {
     fontSize: 16,
@@ -163,7 +161,27 @@ export function RelatorioPDF({ data }: { data: RelatorioData }) {
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View style={styles.logo}>
-            <Text style={styles.logoText}>R</Text>
+            <Svg
+              width={28}
+              height={28}
+              viewBox="0 0 24 24"
+              stroke="#FFFFFF"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            >
+              <Path d="M3 3h.01" />
+              <Path d="M7 5h.01" />
+              <Path d="M11 7h.01" />
+              <Path d="M3 7h.01" />
+              <Path d="M7 9h.01" />
+              <Path d="M3 11h.01" />
+              <Rect x={15} y={5} width={4} height={4} rx={1} />
+              <Path d="m19 9 2 2v10c0 .6-.4 1-1 1h-6c-.6 0-1-.4-1-1V11l2-2" />
+              <Path d="m13 14 8-2" />
+              <Path d="m13 19 8-2" />
+            </Svg>
           </View>
           <View>
             <Text style={styles.title}>RapidoLar</Text>

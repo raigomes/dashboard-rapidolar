@@ -8,13 +8,13 @@ import {
   LogOutIcon,
   PackageIcon,
   ShoppingCartIcon,
-  SprayCanIcon,
   UsersIcon,
   type LucideIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/layout/logo";
 import type { ProfileCargo } from "@/types/profile";
 import { createClient } from "@/utils/supabase/client";
 
@@ -57,11 +57,8 @@ export function Sidebar({
 
   return (
     <div className="flex h-full flex-col bg-background">
-      <div className="flex h-14 shrink-0 items-center gap-2.5 px-4">
-        <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10">
-          <SprayCanIcon className="size-[18px] text-primary" />
-        </div>
-        <span className="text-lg font-bold tracking-tight">RapidoLar</span>
+      <div className="flex h-14 shrink-0 items-center px-4">
+        <Logo size="sm" />
       </div>
 
       <nav className="flex-1 space-y-1 py-2">

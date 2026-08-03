@@ -10,6 +10,7 @@ import {
 
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Logo } from "@/components/layout/logo";
 import { cn } from "@/lib/utils";
 
 const FEATURES: {
@@ -48,10 +49,7 @@ export default function Page() {
   return (
     <main className="flex min-h-screen flex-col bg-background">
       <nav className="flex h-[72px] items-center justify-between border-b border-border bg-card px-6 md:px-10">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="h-4 w-4 rounded-md bg-primary" aria-hidden="true" />
-          <span className="text-2xl font-bold tracking-tight">RapidoLar</span>
-        </Link>
+        <Logo size="md" href="/" />
         <Link href="/login" className={buttonVariants({ size: "lg" })}>
           Entrar
         </Link>
