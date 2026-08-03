@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toastError } from "@/lib/toast";
 import { CATEGORIAS_PRODUTO, type Produto } from "@/types/produto";
 
 const schema = z.object({
@@ -107,7 +108,7 @@ export function ProdutoForm({
     setSubmitting(false);
 
     if (res?.error) {
-      toast.error(res.error);
+      toastError(res.error);
       return;
     }
 

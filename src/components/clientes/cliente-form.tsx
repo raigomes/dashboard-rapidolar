@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { toastError } from "@/lib/toast";
 import type { Cliente } from "@/types/cliente";
 
 const schema = z.object({
@@ -80,7 +81,7 @@ export function ClienteForm({
     setSubmitting(false);
 
     if (res?.error) {
-      toast.error(res.error);
+      toastError(res.error);
       return;
     }
 

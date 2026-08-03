@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toastError } from "@/lib/toast";
 import { createClient } from "@/utils/supabase/client";
 
 const loginSchema = z.object({
@@ -52,7 +53,7 @@ export default function LoginPage() {
     if (error) {
       const message = "E-mail ou senha inválidos.";
       setFormError(message);
-      toast.error(message);
+      toastError(message);
       setIsSubmitting(false);
       return;
     }

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toastError } from "@/lib/toast";
 
 export function EditarNome({ nome }: { nome: string }) {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export function EditarNome({ nome }: { nome: string }) {
 
   useEffect(() => {
     if (state?.error) {
-      toast.error(state.error);
+      toastError(state.error);
     } else if (state?.ok) {
       toast.success("Nome atualizado com sucesso!");
     }

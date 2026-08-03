@@ -26,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { toastError } from "@/lib/toast";
 import type { Cliente } from "@/types/cliente";
 
 export function ClientesTabela({
@@ -72,7 +73,7 @@ export function ClientesTabela({
     const res = await deleteCliente(deletar.id);
     setExcluindo(false);
     if (res?.error) {
-      toast.error(res.error);
+      toastError(res.error);
     } else {
       toast.success("Cliente excluído com sucesso!");
       router.refresh();

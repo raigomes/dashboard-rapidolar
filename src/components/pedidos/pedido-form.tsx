@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formatCurrency, formatStatus, toISODate } from "@/lib/format";
+import { toastError } from "@/lib/toast";
 import type { ClienteOption } from "@/types/cliente";
 import type { Pedido } from "@/types/pedido";
 import type { ProdutoOption } from "@/types/produto";
@@ -174,7 +175,7 @@ export function PedidoForm({
       const message =
         parsed.error.issues[0]?.message ?? "Verifique os dados do pedido.";
       setErro(message);
-      toast.error(message);
+      toastError(message);
       return;
     }
 
@@ -186,7 +187,7 @@ export function PedidoForm({
 
     if (res?.error) {
       setErro(res.error);
-      toast.error(res.error);
+      toastError(res.error);
       return;
     }
 

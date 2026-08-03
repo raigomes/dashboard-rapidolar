@@ -162,13 +162,13 @@ export function SalesChart() {
         <PeriodSelector value={period} onChange={setPeriod} />
       </div>
       {loading ? (
-        <Skeleton className="h-[200px] w-full rounded-lg md:h-[300px]" />
+        <Skeleton className="h-[200px] w-full rounded-lg md:h-[350px]" />
       ) : error ? (
-        <div className="flex h-[200px] items-center justify-center text-sm text-muted-foreground md:h-[300px]">
+        <div className="flex h-[200px] items-center justify-center text-sm text-muted-foreground md:h-[350px]">
           {error}
         </div>
       ) : (
-        <div className="h-[200px] w-full md:h-[300px]">
+        <div className="h-[200px] w-full md:h-[350px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}

@@ -35,6 +35,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCurrency, formatData, formatStatus, formatUuidCurto } from "@/lib/format";
+import { toastError } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 import type { ClienteOption } from "@/types/cliente";
 import type { Pedido } from "@/types/pedido";
@@ -103,7 +104,7 @@ export function PedidosTabela({
     const res = await deletePedido(deletar.id);
     setExcluindo(false);
     if (res?.error) {
-      toast.error(res.error);
+      toastError(res.error);
     } else {
       toast.success("Pedido excluído com sucesso!");
       router.refresh();

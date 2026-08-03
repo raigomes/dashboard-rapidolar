@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCategoria, formatCurrency, formatInteger } from "@/lib/format";
+import { toastError } from "@/lib/toast";
 import type { Produto } from "@/types/produto";
 
 export function ProdutosTabela({
@@ -74,7 +75,7 @@ export function ProdutosTabela({
     const res = await deleteProduto(deletar.id);
     setExcluindo(false);
     if (res?.error) {
-      toast.error(res.error);
+      toastError(res.error);
     } else {
       toast.success("Produto excluído com sucesso!");
       router.refresh();
