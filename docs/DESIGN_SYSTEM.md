@@ -1,8 +1,9 @@
 # Design System — RapidoLar Dashboard
 
 > **Gerado pelo Designer (Pencil.dev).** Especificação visual para implementação.
-> **Versão:** 1.3
+> **Versão:** 1.4
 > **Data:** 2026-08-02
+> **Changelog v1.4:** identidade visual da marca aprovada pelo usuário (commits `6cc50e8` + `0da49f5`) — logo RapidoLar passa a ser `SprayCanIcon` (Lucide `spray-can`) em caixa `bg-primary/10` com ícone `text-primary`. §2.7 Sidebar (barra branca com **Logo sm**), §2.8 Header (**Logo sm** à esquerda, wordmark `hidden md:inline`), §3.0 Landing (**Logo md**, nav `h-[72px]`), §3.1 Login (**Logo md** centralizado), §3.6 Relatórios/PDF (marca SprayCan em SVG branco sobre caixa teal `#0F766E` 28px r6 — substitui a antiga letra "R"), §1.1 padrão da logo, §6 ícone `SprayCan`, §8 componente `Logo` em `src/components/layout/logo.tsx`. `dashboard.pen` v2.14 atualizado (frames `vajch`/`tPjaL` Login, `Ld101`/`Ld102` Landing, LogoBar dos 5 sidebars `fhwvF`/`7t2cZ`/`frCbF`/`PmPwp`/`hGyUv`, Header `b8y6F`) com novo token `$brand-10` (`#E7F1F0` = teal `#0F766E` a 10% sobre branco). Os antigos marks (quadrado liso `$brand`, barra sólida `$brand` com texto branco) ficam apenas neste changelog como histórico.
 > **Changelog v1.3:** correção T4.7 (2ª rodada) no frame `LndPg` do `dashboard.pen` — `Ld131` (CtaCard) com `width: 1152` (antes `fill_container`, que esticava a banda `$brand` por toda a tela; agora equivale a `max-w-6xl mx-auto` da §3.0) e textos `Ld132`/`Ld133` (CtaTitle/CtaSub) com `width: fill_container` (antes sem `width` + `textGrowth: fixed-width`, que quebrava cada caractere em linha própria). §3.0 atualizada com nota.
 > **Changelog v1.2:** correção T4.7 no frame `LndPg` (Landing) do `dashboard.pen` — ícones dos Feature Cards deixaram de ser emoji (📊📦👥🛒📄) e passaram a usar rótulos Lucide kebab-case (`layout-dashboard`, `package`, `users`, `shopping-cart`, `file-text`) no componente `FXcRd` e nas 5 instâncias; wireframe §3.0 atualizado com os rótulos; refs/descendants de `LndPg` auditados e validados (nenhum self-override; todos os overrides resolvem para ids existentes — ver validação da T4.7).
 > **Changelog v1.1:** nova §3.0 (Página Raiz `/` — Landing) + protótipo `dashboard.pen` atualizado (página Landing + componentes reutilizáveis Feature Card / Button Light + variáveis `secondary`/`secondaryfg`).
@@ -76,6 +77,8 @@ O tema usa **CSS variables** (shadcn/ui pattern) definidas em `globals.css`. Val
 | **Info-foreground** | `--info-foreground`       | `#1E3A5F`   | Texto em info badge                           |
 
 **Decisão de cor:** Teal como primary por associar-se a limpeza, frescor e confiança — alinhado ao segmento de produtos de limpeza e descartáveis da RapidoLar. Neutros em escala zinc/stone para máxima legibilidade.
+
+**Padrão da logo (marca do produto):** a marca é o ícone `SprayCan` (Lucide `spray-can`) em container `bg-primary/10` com ícone `text-primary`. O `bg-primary/10` (teal `#0F766E` a 10% de opacidade) sobre fundo branco/card equivale ao tint `#E7F1F0` — representado no protótipo pelo token `$brand-10` do `dashboard.pen`. Ver §2.7 (sm), §2.8 (sm), §3.0 (md), §3.1 (md) e §3.6 (PDF, marca branca sobre teal sólido).
 
 **Variante de variação percentual (subida/descida):**
 - Variação positiva: `text-emerald-600` + `▲` (seta up)
@@ -354,28 +357,29 @@ Usar shadcn/ui `<Badge>` para status.
 
 **Especificações:**
 - **Width:** `w-56` (224px) expandida, `w-0` colapsada
-- **Background:** `bg-card` (branco `#FFFFFF`) com `border-r border-border` — conforme protótipo `dashboard.pen` (decisão do Owner 2026-07-31: sidebar branca, padrão admin; LogoBar em `$brand`)
+- **Background:** `bg-background` (branco `#FFFFFF`) com `border-r border-border` — conforme protótipo `dashboard.pen` (decisão do Owner 2026-07-31: sidebar branca, padrão admin; desde v1.4 a LogoBar é branca `$card` com **Logo sm**, não mais sólida `$brand`)
 - **Divider:** `border-r border-border`
 - **Nav item:** `flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md mx-2`
 - **Nav item hover:** `bg-accent text-accent-foreground`
 - **Nav item active:** `bg-primary/10 text-primary font-semibold` + ícone cheio (ex: `LayoutDashboard` vs `LayoutDashboardIcon`)
 - **Ícones:** Lucide, 18px (`h-[18px] w-[18px]`)
-- **Logo:** Texto "RapidoLar" em `text-lg font-bold tracking-tight` + ícone de caixa/limpeza
+- **Logo:** `<Logo size="sm" />` — **Logo sm**: caixa 32px `size-8 rounded-lg bg-primary/10` + `SprayCanIcon size-[18px] text-primary` + wordmark "RapidoLar" `text-lg font-bold tracking-tight`. Barra de logo branca `h-14 flex items-center px-4` (no protótipo: frame LogoBar `$card` com mark 32px `$brand-10` + label `spray-can` + wordmark 18px)
 - **Collapse:** Em <1024px, sidebar vira `Sheet` (overlay) com trigger hamburger no header
 - **Logout:** Item "Sair" com `LogOut` icon, no final da sidebar
 
 ### 2.8 Header / Top Bar
 
 ```
-┌────────────────────────────────────────────────────┐
-│ ☰ (hamburger, <1024px)    [Breadcrumb]     👤 Nome │
-└────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│ ☰ (<1024px) [Logo sm] [Dashboard]             👤 Adm  │
+└────────────────────────────────────────────────────────┘
 ```
 
 **Especificações:**
 - **Height:** `h-14`
 - **Background:** `bg-background border-b border-border`
 - **Padding:** `px-4 md:px-6`
+- **Logo:** `<Logo size="sm" href="/dashboard" className="hidden md:inline" />` à esquerda (após o hamburger) — **Logo sm**: caixa 32px `size-8 rounded-lg bg-primary/10` + `SprayCanIcon size-[18px] text-primary` + wordmark "RapidoLar" `text-lg font-bold tracking-tight`; o wordmark é `hidden md:inline` (some em telas <768px); clica para `/dashboard`
 - **Hamburger:** Visível apenas em <1024px, `Button variant="ghost" size="icon"` com `Menu` icon
 - **Breadcrumb:** Opcional (pode ser apenas o título da página atual)
 - **User dropdown:** `DropdownMenu` com avatar (iniciais), nome, email, link "Perfil", separator, "Sair"
@@ -462,7 +466,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 
 ```
 ┌────────────────────────────────────────────────────┐
-│ [▪ RapidoLar]                        [ Entrar ]   │  ← Nav (h-18, bg-card, border-b)
+│ [◯ spray-can RapidoLar]              [ Entrar ]   │  ← Nav (h-[72px], bg-card, border-b)
 ├────────────────────────────────────────────────────┤
 │                                                    │
 │        ( Para distribuidoras de limpeza... )       │  ← Badge pill (bg-secondary)
@@ -500,7 +504,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | Elemento           | Especificação                                                                                                    |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
 | **Container**      | `min-h-screen bg-background` — página pública, fora do grupo `(dashboard)`                                       |
-| **Nav (topo)**     | `h-18 flex items-center justify-between px-6 md:px-10 border-b border-border bg-card`. Logo = mark `h-4 w-4 bg-primary rounded-md` + texto "RapidoLar" `text-2xl font-bold tracking-tight` |
+| **Nav (topo)**     | `h-[72px] flex items-center justify-between px-6 md:px-10 border-b border-border bg-card`. Logo = **Logo md** (`<Logo size="md" href="/" />`): caixa 48px `size-12 rounded-full bg-primary/10` + `SprayCanIcon size-6 text-primary` + wordmark "RapidoLar" `text-2xl font-bold tracking-tight` |
 | **Nav CTA**        | `Button` "Entrar" (size `md`) → `Link href="/login"`                                                             |
 | **Hero**           | `flex flex-col items-center text-center px-4 py-16 md:py-24`                                                      |
 | **Badge hero**     | pill: `inline-flex items-center rounded-full bg-secondary text-secondary-foreground text-xs font-medium px-4 py-1.5` — "Para distribuidoras de limpeza e descartáveis" |
@@ -567,7 +571,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | -------------- | ---------------------------------------------------- |
 | **Container**  | `flex min-h-screen items-center justify-center bg-muted` |
 | **Card**       | `w-full max-w-sm mx-4 p-6` (Card do shadcn), `shadow-md` |
-| **Logo**       | `text-2xl font-bold text-center mb-8` — "RapidoLar"    |
+| **Logo**       | **Logo md** centralizado (`<Logo size="md" />`): círculo 48px `size-12 rounded-full bg-primary/10` + `SprayCanIcon size-6 text-primary` + wordmark "RapidoLar" `text-2xl font-bold tracking-tight`, `mb-8` |
 | **Form**       | `space-y-4`                                           |
 | **Input email**| `Input type="email" placeholder="seu@email.com"`      |
 | **Input senha**| `Input type="password" placeholder="Sua senha"`       |
@@ -810,7 +814,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | **Period selectors**   | 2x `Input type="date"` em linha                     |
 | **Buttons**            | "Gerar Relatório" (primary) + "Exportar PDF" (outline, com `FileDown` icon) |
 | **Preview card**       | Card com `p-6`, exibe dados após "Gerar Relatório"  |
-| **PDF content**        | Logo RapidoLar, período, faturamento total, total pedidos, top 10 produtos, top 10 clientes |
+| **PDF content**        | Logo RapidoLar, período, faturamento total, total pedidos, top 10 produtos, top 10 clientes. **Logo do PDF (marca):** `Svg`/`Path`/`Rect` do `@react-pdf/renderer` — caixa teal `#0F766E` 28×28px `cornerRadius` 6 (equivale a `borderRadius: 6`) com a marca **SprayCan em SVG branco** (`stroke="#FFFFFF"` strokeWidth 1.8, viewBox `0 0 24 24`; paths do Lucide `spray-can`: dots `M3 3h.01`/`M7 5h.01`/`M11 7h.01`/`M3 7h.01`/`M7 9h.01`/`M3 11h.01`, `Rect x=15 y=5 w=4 h=4 rx=1`, canister `m19 9 2 2v10...`, spout/handle `m13 14 8-2`/`m13 19 8-2`); título "RapidoLar" `Helvetica-Bold 16` teal — substitui a antiga letra "R" |
 | **Loading**            | Skeleton no preview + botão "Gerando…" com spinner   |
 
 ---
@@ -980,6 +984,7 @@ Todos os ícones usam `lucide-react`. Tamanho padrão: `18px` (`h-[18px] w-[18px
 | **Sidebar — Pedidos**        | `ShoppingCart`        | Gestão de pedidos                                |
 | **Sidebar — Relatórios**     | `FileText`            | Relatórios (admin)                               |
 | **Sidebar — Sair**           | `LogOut`              | Logout do sistema                                |
+| **Logo (marca)**         | `SprayCan`             | Marca/logo do produto — `SprayCanIcon` em caixa `bg-primary/10 text-primary` (sm: 32px `rounded-lg`, md: 48px `rounded-full`); no PDF, branco sobre teal `#0F766E` |
 | **Header — Menu (mobile)**   | `Menu`                | Hamburger para sidebar overlay                   |
 | **Header — Usuário**         | `UserCircle`          | Avatar/fallback no dropdown                      |
 | **Header — Dropdown Perfil** | `User`                | Link para perfil                                 |
@@ -1105,6 +1110,7 @@ src/
 │   │   ├── avatar.tsx
 │   │   └── pagination.tsx
 │   ├── layout/
+│   │   ├── logo.tsx              # Logo RapidoLar (SprayCanIcon + wordmark) — props: size, showWordmark, href, className
 │   │   ├── sidebar.tsx           # Sidebar navigation
 │   │   ├── header.tsx            # Top bar
 │   │   └── user-nav.tsx          # User dropdown (avatar + menu)
@@ -1156,7 +1162,7 @@ LoginLayout
 
 DashboardLayout (agrupado em (dashboard))
 ├── Sidebar (Desktop: fixed, Mobile: Sheet)
-│   ├── Logo
+│   ├── Logo                    # <Logo size="sm" /> — src/components/layout/logo.tsx
 │   ├── NavItem[] (ícone + label + active state)
 │   └── NavItem("Sair", LogOut)
 ├── Header

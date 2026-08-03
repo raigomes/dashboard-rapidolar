@@ -52,13 +52,31 @@
               "justifyContent": "center",
               "children": [
                 {
-                  "type": "rectangle",
+                  "type": "frame",
                   "id": "tPjaL",
                   "name": "LogoMark",
-                  "fill": "$brand",
-                  "width": 14,
-                  "height": 14,
-                  "cornerRadius": 4
+                  "width": 48,
+                  "height": 48,
+                  "fill": "$brand-10",
+                  "layout": "horizontal",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cornerRadius": 999,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tPjaM",
+                      "name": "Icon",
+                      "content": "spray-can",
+                      "fill": "$brand",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "textAlign": "center",
+                      "textAlignVertical": "middle",
+                      "lineHeight": 1.4
+                    }
+                  ]
                 },
                 {
                   "type": "text",
@@ -4316,13 +4334,31 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "rectangle",
+                  "type": "frame",
                   "id": "Ld102",
                   "name": "LogoMark",
-                  "fill": "$brand",
-                  "width": 16,
-                  "height": 16,
-                  "cornerRadius": 4
+                  "width": 48,
+                  "height": 48,
+                  "fill": "$brand-10",
+                  "layout": "horizontal",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cornerRadius": 999,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ld10A",
+                      "name": "Icon",
+                      "content": "spray-can",
+                      "fill": "$brand",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "textAlign": "center",
+                      "textAlignVertical": "middle",
+                      "lineHeight": 1.4
+                    }
+                  ]
                 },
                 {
                   "type": "text",
@@ -5561,20 +5597,51 @@
           "id": "fhwvF",
           "name": "LogoBar",
           "width": "fill_container",
-          "height": 60,
-          "fill": "$brand",
+          "height": 56,
+          "fill": "$card",
           "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            16
+          ],
           "alignItems": "center",
-          "justifyContent": "center",
           "children": [
+            {
+              "type": "frame",
+              "id": "fhwvA",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "fhwvB",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
             {
               "type": "text",
               "id": "cSjAN",
               "name": "Logo",
               "content": "RapidoLar",
-              "fill": "#ffffff",
+              "fill": "$fg",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 18,
               "fontWeight": "700"
             }
           ]
@@ -5689,20 +5756,51 @@
           "id": "7t2cZ",
           "name": "LogoBar",
           "width": "fill_container",
-          "height": 60,
-          "fill": "$brand",
+          "height": 56,
+          "fill": "$card",
           "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            16
+          ],
           "alignItems": "center",
-          "justifyContent": "center",
           "children": [
+            {
+              "type": "frame",
+              "id": "7t2cA",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "7t2cB",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
             {
               "type": "text",
               "id": "NHnKd",
               "name": "Logo",
               "content": "RapidoLar",
-              "fill": "#ffffff",
+              "fill": "$fg",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 18,
               "fontWeight": "700"
             }
           ]
@@ -5817,20 +5915,51 @@
           "id": "frCbF",
           "name": "LogoBar",
           "width": "fill_container",
-          "height": 60,
-          "fill": "$brand",
+          "height": 56,
+          "fill": "$card",
           "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            16
+          ],
           "alignItems": "center",
-          "justifyContent": "center",
           "children": [
+            {
+              "type": "frame",
+              "id": "frCbA",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "frCbB",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
             {
               "type": "text",
               "id": "cNoes",
               "name": "Logo",
               "content": "RapidoLar",
-              "fill": "#ffffff",
+              "fill": "$fg",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 18,
               "fontWeight": "700"
             }
           ]
@@ -5945,20 +6074,51 @@
           "id": "PmPwp",
           "name": "LogoBar",
           "width": "fill_container",
-          "height": 60,
-          "fill": "$brand",
+          "height": 56,
+          "fill": "$card",
           "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            16
+          ],
           "alignItems": "center",
-          "justifyContent": "center",
           "children": [
+            {
+              "type": "frame",
+              "id": "PmPwA",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PmPwB",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
             {
               "type": "text",
               "id": "LJogM",
               "name": "Logo",
               "content": "RapidoLar",
-              "fill": "#ffffff",
+              "fill": "$fg",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 18,
               "fontWeight": "700"
             }
           ]
@@ -6073,20 +6233,51 @@
           "id": "hGyUv",
           "name": "LogoBar",
           "width": "fill_container",
-          "height": 60,
-          "fill": "$brand",
+          "height": 56,
+          "fill": "$card",
           "layout": "horizontal",
+          "gap": 10,
+          "padding": [
+            0,
+            16
+          ],
           "alignItems": "center",
-          "justifyContent": "center",
           "children": [
+            {
+              "type": "frame",
+              "id": "hGyUvA",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hGyUvB",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
             {
               "type": "text",
               "id": "vLwEf",
               "name": "Logo",
               "content": "RapidoLar",
-              "fill": "#ffffff",
+              "fill": "$fg",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 18,
               "fontWeight": "700"
             }
           ]
@@ -6202,6 +6393,53 @@
       "alignItems": "center",
       "reusable": true,
       "children": [
+        {
+          "type": "frame",
+          "id": "HdrLgA",
+          "name": "LogoSm",
+          "layout": "horizontal",
+          "gap": 10,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "HdrLgB",
+              "name": "LogoMark",
+              "width": 32,
+              "height": 32,
+              "fill": "$brand-10",
+              "layout": "horizontal",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "cornerRadius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HdrLgC",
+                  "name": "Icon",
+                  "content": "spray-can",
+                  "fill": "$brand",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                  "textAlignVertical": "middle",
+                  "lineHeight": 1.4
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "HdrLgD",
+              "name": "Logo",
+              "content": "RapidoLar",
+              "fill": "$fg",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "700"
+            }
+          ]
+        },
         {
           "type": "text",
           "id": "z9npd",
@@ -7355,6 +7593,10 @@
     "brand": {
       "type": "color",
       "value": "#0F766E"
+    },
+    "brand-10": {
+      "type": "color",
+      "value": "#E7F1F0"
     },
     "fg": {
       "type": "color",
