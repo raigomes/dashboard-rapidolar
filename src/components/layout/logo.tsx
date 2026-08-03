@@ -24,6 +24,7 @@ export function Logo({
       aria-hidden={showWordmark ? undefined : true}
     >
       <span
+        aria-hidden="true"
         className={cn(
           "flex items-center justify-center bg-primary/10 text-primary",
           isMd ? "size-12 rounded-full" : "size-8 rounded-lg",
