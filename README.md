@@ -86,7 +86,7 @@ As políticas do Supabase aplicam **menor privilégio** (`is_admin()` + escopo p
 | CRUD completo (produtos, clientes, pedidos) | ✅ |
 | Filtros por data, cliente, status em `/pedidos` | ✅ |
 | Faturamento dia/mês, top produtos, top 10 clientes | ✅ |
-| Estoque baixo | ⚠️ estoque exibido no CRUD de produtos; sem alerta dedicado |
+| Estoque baixo | ✅ badge em /produtos + card no dashboard (limite 10) |
 | Exportação PDF | ✅ `/relatorios` (admin) |
 | Recharts, Supabase + RLS, layout responsivo | ✅ |
 
