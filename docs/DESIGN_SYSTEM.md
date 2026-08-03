@@ -1,9 +1,10 @@
 # Design System — RapidoLar Dashboard
 
 > **Gerado pelo Designer (Pencil.dev).** Especificação visual para implementação.
-> **Versão:** 1.4
+> **Versão:** 1.4.1
 > **Data:** 2026-08-02
-> **Changelog v1.4:** identidade visual da marca aprovada pelo usuário (commits `6cc50e8` + `0da49f5`) — logo RapidoLar passa a ser `SprayCanIcon` (Lucide `spray-can`) em caixa `bg-primary/10` com ícone `text-primary`. §2.7 Sidebar (barra branca com **Logo sm**), §2.8 Header (**Logo sm** à esquerda, wordmark `hidden md:inline`), §3.0 Landing (**Logo md**, nav `h-[72px]`), §3.1 Login (**Logo md** centralizado), §3.6 Relatórios/PDF (marca SprayCan em SVG branco sobre caixa teal `#0F766E` 28px r6 — substitui a antiga letra "R"), §1.1 padrão da logo, §6 ícone `SprayCan`, §8 componente `Logo` em `src/components/layout/logo.tsx`. `dashboard.pen` v2.14 atualizado (frames `vajch`/`tPjaL` Login, `Ld101`/`Ld102` Landing, LogoBar dos 5 sidebars `fhwvF`/`7t2cZ`/`frCbF`/`PmPwp`/`hGyUv`, Header `b8y6F`) com novo token `$brand-10` (`#E7F1F0` = teal `#0F766E` a 10% sobre branco). Os antigos marks (quadrado liso `$brand`, barra sólida `$brand` com texto branco) ficam apenas neste changelog como histórico.
+> **Changelog v1.4.1:** logo duplicada removida do header da área logada (decisão do usuário 2026-08-02). O Header **não tem logo** — apenas hamburger (mobile), título da página e UserNav; a logo RapidoLar fica **exclusivamente na sidebar** (Logo sm, §2.7). `dashboard.pen` atualizado: frame Header `b8y6F` sem o grupo `HdrLgA` (LogoSm: mark 32px `$brand-10` + label `spray-can` + wordmark) — Header volta a ser PageTitle + Spacer + UserNav. Logo da sidebar (LogoBar), landing e login **inalteradas**. §2.8 reescrita sem logo; §1.1 e §6 ajustadas (referência ao sm restrita à sidebar); refs do protótipo permanecem **101**.
+> **Changelog v1.4:** identidade visual da marca aprovada pelo usuário (commits `6cc50e8` + `0da49f5`) — logo RapidoLar passa a ser `SprayCanIcon` (Lucide `spray-can`) em caixa `bg-primary/10` com ícone `text-primary`. §2.7 Sidebar (barra branca com **Logo sm**), §2.8 Header (**Logo sm** à esquerda, wordmark `hidden md:inline` — **removido em v1.4.1, ver acima**), §3.0 Landing (**Logo md**, nav `h-[72px]`), §3.1 Login (**Logo md** centralizado), §3.6 Relatórios/PDF (marca SprayCan em SVG branco sobre caixa teal `#0F766E` 28px r6 — substitui a antiga letra "R"), §1.1 padrão da logo, §6 ícone `SprayCan`, §8 componente `Logo` em `src/components/layout/logo.tsx`. `dashboard.pen` v2.14 atualizado (frames `vajch`/`tPjaL` Login, `Ld101`/`Ld102` Landing, LogoBar dos 5 sidebars `fhwvF`/`7t2cZ`/`frCbF`/`PmPwp`/`hGyUv`, Header `b8y6F`) com novo token `$brand-10` (`#E7F1F0` = teal `#0F766E` a 10% sobre branco). Os antigos marks (quadrado liso `$brand`, barra sólida `$brand` com texto branco) ficam apenas neste changelog como histórico.
 > **Changelog v1.3:** correção T4.7 (2ª rodada) no frame `LndPg` do `dashboard.pen` — `Ld131` (CtaCard) com `width: 1152` (antes `fill_container`, que esticava a banda `$brand` por toda a tela; agora equivale a `max-w-6xl mx-auto` da §3.0) e textos `Ld132`/`Ld133` (CtaTitle/CtaSub) com `width: fill_container` (antes sem `width` + `textGrowth: fixed-width`, que quebrava cada caractere em linha própria). §3.0 atualizada com nota.
 > **Changelog v1.2:** correção T4.7 no frame `LndPg` (Landing) do `dashboard.pen` — ícones dos Feature Cards deixaram de ser emoji (📊📦👥🛒📄) e passaram a usar rótulos Lucide kebab-case (`layout-dashboard`, `package`, `users`, `shopping-cart`, `file-text`) no componente `FXcRd` e nas 5 instâncias; wireframe §3.0 atualizado com os rótulos; refs/descendants de `LndPg` auditados e validados (nenhum self-override; todos os overrides resolvem para ids existentes — ver validação da T4.7).
 > **Changelog v1.1:** nova §3.0 (Página Raiz `/` — Landing) + protótipo `dashboard.pen` atualizado (página Landing + componentes reutilizáveis Feature Card / Button Light + variáveis `secondary`/`secondaryfg`).
@@ -78,7 +79,7 @@ O tema usa **CSS variables** (shadcn/ui pattern) definidas em `globals.css`. Val
 
 **Decisão de cor:** Teal como primary por associar-se a limpeza, frescor e confiança — alinhado ao segmento de produtos de limpeza e descartáveis da RapidoLar. Neutros em escala zinc/stone para máxima legibilidade.
 
-**Padrão da logo (marca do produto):** a marca é o ícone `SprayCan` (Lucide `spray-can`) em container `bg-primary/10` com ícone `text-primary`. O `bg-primary/10` (teal `#0F766E` a 10% de opacidade) sobre fundo branco/card equivale ao tint `#E7F1F0` — representado no protótipo pelo token `$brand-10` do `dashboard.pen`. Ver §2.7 (sm), §2.8 (sm), §3.0 (md), §3.1 (md) e §3.6 (PDF, marca branca sobre teal sólido).
+**Padrão da logo (marca do produto):** a marca é o ícone `SprayCan` (Lucide `spray-can`) em container `bg-primary/10` com ícone `text-primary`. O `bg-primary/10` (teal `#0F766E` a 10% de opacidade) sobre fundo branco/card equivale ao tint `#E7F1F0` — representado no protótipo pelo token `$brand-10` do `dashboard.pen`. Ver §2.7 (sm — **sidebar**; na área logada a logo aparece somente ali), §3.0 (md), §3.1 (md) e §3.6 (PDF, marca branca sobre teal sólido). O header das páginas internas **não exibe logo** (§2.8).
 
 **Variante de variação percentual (subida/descida):**
 - Variação positiva: `text-emerald-600` + `▲` (seta up)
@@ -371,15 +372,15 @@ Usar shadcn/ui `<Badge>` para status.
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│ ☰ (<1024px) [Logo sm] [Dashboard]             👤 Adm  │
+│ ☰ (<1024px)  Dashboard                       👤 Adm   │
 └────────────────────────────────────────────────────────┘
 ```
 
 **Especificações:**
+- **Sem logo:** o header da área logada **não exibe a logo RapidoLar** (decisão do usuário 2026-08-02, changelog v1.4.1). A logo aparece **exclusivamente na sidebar** (Logo sm, §2.7). No protótipo `dashboard.pen`, o frame Header `b8y6F` contém apenas PageTitle + Spacer + UserNav.
 - **Height:** `h-14`
 - **Background:** `bg-background border-b border-border`
 - **Padding:** `px-4 md:px-6`
-- **Logo:** `<Logo size="sm" href="/dashboard" className="hidden md:inline" />` à esquerda (após o hamburger) — **Logo sm**: caixa 32px `size-8 rounded-lg bg-primary/10` + `SprayCanIcon size-[18px] text-primary` + wordmark "RapidoLar" `text-lg font-bold tracking-tight`; o wordmark é `hidden md:inline` (some em telas <768px); clica para `/dashboard`
 - **Hamburger:** Visível apenas em <1024px, `Button variant="ghost" size="icon"` com `Menu` icon
 - **Breadcrumb:** Opcional (pode ser apenas o título da página atual)
 - **User dropdown:** `DropdownMenu` com avatar (iniciais), nome, email, link "Perfil", separator, "Sair"
@@ -984,7 +985,7 @@ Todos os ícones usam `lucide-react`. Tamanho padrão: `18px` (`h-[18px] w-[18px
 | **Sidebar — Pedidos**        | `ShoppingCart`        | Gestão de pedidos                                |
 | **Sidebar — Relatórios**     | `FileText`            | Relatórios (admin)                               |
 | **Sidebar — Sair**           | `LogOut`              | Logout do sistema                                |
-| **Logo (marca)**         | `SprayCan`             | Marca/logo do produto — `SprayCanIcon` em caixa `bg-primary/10 text-primary` (sm: 32px `rounded-lg`, md: 48px `rounded-full`); no PDF, branco sobre teal `#0F766E` |
+| **Logo (marca)**         | `SprayCan`             | Marca/logo do produto — `SprayCanIcon` em caixa `bg-primary/10 text-primary` (sm: 32px `rounded-lg` — **sidebar**; md: 48px `rounded-full` — landing/login); no PDF, branco sobre teal `#0F766E`. O header logado não usa logo (§2.8) |
 | **Header — Menu (mobile)**   | `Menu`                | Hamburger para sidebar overlay                   |
 | **Header — Usuário**         | `UserCircle`          | Avatar/fallback no dropdown                      |
 | **Header — Dropdown Perfil** | `User`                | Link para perfil                                 |
@@ -1165,7 +1166,7 @@ DashboardLayout (agrupado em (dashboard))
 │   ├── Logo                    # <Logo size="sm" /> — src/components/layout/logo.tsx
 │   ├── NavItem[] (ícone + label + active state)
 │   └── NavItem("Sair", LogOut)
-├── Header
+├── Header                      # Sem logo (v1.4.1 — a logo fica só na sidebar)
 │   ├── MenuButton (mobile only)
 │   ├── PageTitle / Breadcrumb
 │   └── UserNav (Avatar + DropdownMenu)

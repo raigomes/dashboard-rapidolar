@@ -6394,53 +6394,6 @@
       "reusable": true,
       "children": [
         {
-          "type": "frame",
-          "id": "HdrLgA",
-          "name": "LogoSm",
-          "layout": "horizontal",
-          "gap": 10,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "HdrLgB",
-              "name": "LogoMark",
-              "width": 32,
-              "height": 32,
-              "fill": "$brand-10",
-              "layout": "horizontal",
-              "alignItems": "center",
-              "justifyContent": "center",
-              "cornerRadius": 8,
-              "children": [
-                {
-                  "type": "text",
-                  "id": "HdrLgC",
-                  "name": "Icon",
-                  "content": "spray-can",
-                  "fill": "$brand",
-                  "fontFamily": "Inter",
-                  "fontSize": 11,
-                  "fontWeight": "600",
-                  "textAlign": "center",
-                  "textAlignVertical": "middle",
-                  "lineHeight": 1.4
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "HdrLgD",
-              "name": "Logo",
-              "content": "RapidoLar",
-              "fill": "$fg",
-              "fontFamily": "Inter",
-              "fontSize": 18,
-              "fontWeight": "700"
-            }
-          ]
-        },
-        {
           "type": "text",
           "id": "z9npd",
           "name": "PageTitle",
