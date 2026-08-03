@@ -5428,7 +5428,7 @@
               "id": "6WhtB",
               "name": "Estoque",
               "content": "0",
-              "fill": "$fg",
+              "fill": "$estnum",
               "fontFamily": "Inter",
               "fontSize": 14,
               "fontWeight": "500"
@@ -7833,6 +7833,10 @@
     "estbd": {
       "type": "color",
       "value": "#FCD34D"
+    },
+    "estnum": {
+      "type": "color",
+      "value": "#E40014"
     }
   },
   "fileToken": "d94d6b0b-360d-46a0-a72f-ce443b724018"
