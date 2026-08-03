@@ -177,7 +177,15 @@ export function ProdutosTabela({
                         {formatCurrency(produto.preco)}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-right text-sm">
-                        {formatInteger(produto.estoque)}
+                        <span
+                          className={
+                            isEstoqueBaixo(produto.estoque)
+                              ? "font-medium text-red-600"
+                              : undefined
+                          }
+                        >
+                          {formatInteger(produto.estoque)}
+                        </span>
                       </TableCell>
                       {isAdmin && (
                         <TableCell className="px-4 py-3">
