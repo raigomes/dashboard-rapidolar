@@ -1,8 +1,9 @@
 # Design System — RapidoLar Dashboard
 
 > **Gerado pelo Designer (Pencil.dev).** Especificação visual para implementação.
-> **Versão:** 1.4.1
-> **Data:** 2026-08-02
+> **Versão:** 1.5
+> **Data:** 2026-08-03
+> **Changelog v1.5:** sync com a feature "estoque baixo" (veredito do @reviewer 2026-08-03: **APROVADO COM NITS** — follow-up obrigatório do Designer, `docs/failures/estoque-baixo-review.md` §3). 5ª métrica no dashboard — **Estoque Baixo** (ícone `PackageOpen` size-5 `text-muted-foreground`, `formatInteger`, variação "—" quando `variacao === null`; grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5`, skeleton com 5 cards). §2.2 Metric Card: grid 5 colunas desktop + variante do 5º card; §3.2: wireframe com 5º card + grid atualizada; §4: desktop `xl:grid-cols-5`, tablet landscape 1024–1279px `lg:grid-cols-3` (3+2); §1.1: nova regra de variação "—" (null) e correção da variação positiva para `text-emerald-700` (era 600 — código usa 700, contraste 5.48:1 ✓); §1.6 e §8 atualizados (grid 2-5 colunas, "5 metric cards"). Badge **"Estoque baixo"** (`variant="outline"` + `border-amber-300 bg-amber-100 text-amber-800`, `text-xs font-medium`, pill `h-5`, `title` acessível, contraste **6.37:1** ✓ WCAG AA) documentado na §2.6 (tokens `$estbg`/`$estfg`/`$estbd`) e §3.3 (célula Estoque: número + badge `gap-2`, visível para admin E vendedor). §6: "Card — Estoque baixo → `PackageOpen`". `dashboard.pen` **v2.15**: 5º MetricCard `eBqU7` no `MetricsRow` `urL8F`; novos tokens `$estbg`/`$estfg`/`$estbd` (amber-100/800/300); novo reusable `esBdg` (Badge Estoque Baixo) e variante `N7Wq` (Row Produto Estoque Baixo — badge no CellEstoque; o formato Pencil.dev não tem toggle de visibilidade de filho via `descendants`, então a linha com badge é uma **variante de estado**, padrão documentado no AGENTS.md); linhas 1-2 da tabela de produtos demonstram estoque 2 e 10 com badge. Refs do protótipo passam de **101** → **103**.
 > **Changelog v1.4.1:** logo duplicada removida do header da área logada (decisão do usuário 2026-08-02). O Header **não tem logo** — apenas hamburger (mobile), título da página e UserNav; a logo RapidoLar fica **exclusivamente na sidebar** (Logo sm, §2.7). `dashboard.pen` atualizado: frame Header `b8y6F` sem o grupo `HdrLgA` (LogoSm: mark 32px `$brand-10` + label `spray-can` + wordmark) — Header volta a ser PageTitle + Spacer + UserNav. Logo da sidebar (LogoBar), landing e login **inalteradas**. §2.8 reescrita sem logo; §1.1 e §6 ajustadas (referência ao sm restrita à sidebar); refs do protótipo permanecem **101**.
 > **Changelog v1.4:** identidade visual da marca aprovada pelo usuário (commits `6cc50e8` + `0da49f5`) — logo RapidoLar passa a ser `SprayCanIcon` (Lucide `spray-can`) em caixa `bg-primary/10` com ícone `text-primary`. §2.7 Sidebar (barra branca com **Logo sm**), §2.8 Header (**Logo sm** à esquerda, wordmark `hidden md:inline` — **removido em v1.4.1, ver acima**), §3.0 Landing (**Logo md**, nav `h-[72px]`), §3.1 Login (**Logo md** centralizado), §3.6 Relatórios/PDF (marca SprayCan em SVG branco sobre caixa teal `#0F766E` 28px r6 — substitui a antiga letra "R"), §1.1 padrão da logo, §6 ícone `SprayCan`, §8 componente `Logo` em `src/components/layout/logo.tsx`. `dashboard.pen` v2.14 atualizado (frames `vajch`/`tPjaL` Login, `Ld101`/`Ld102` Landing, LogoBar dos 5 sidebars `fhwvF`/`7t2cZ`/`frCbF`/`PmPwp`/`hGyUv`, Header `b8y6F`) com novo token `$brand-10` (`#E7F1F0` = teal `#0F766E` a 10% sobre branco). Os antigos marks (quadrado liso `$brand`, barra sólida `$brand` com texto branco) ficam apenas neste changelog como histórico.
 > **Changelog v1.3:** correção T4.7 (2ª rodada) no frame `LndPg` do `dashboard.pen` — `Ld131` (CtaCard) com `width: 1152` (antes `fill_container`, que esticava a banda `$brand` por toda a tela; agora equivale a `max-w-6xl mx-auto` da §3.0) e textos `Ld132`/`Ld133` (CtaTitle/CtaSub) com `width: fill_container` (antes sem `width` + `textGrowth: fixed-width`, que quebrava cada caractere em linha própria). §3.0 atualizada com nota.
@@ -82,9 +83,10 @@ O tema usa **CSS variables** (shadcn/ui pattern) definidas em `globals.css`. Val
 **Padrão da logo (marca do produto):** a marca é o ícone `SprayCan` (Lucide `spray-can`) em container `bg-primary/10` com ícone `text-primary`. O `bg-primary/10` (teal `#0F766E` a 10% de opacidade) sobre fundo branco/card equivale ao tint `#E7F1F0` — representado no protótipo pelo token `$brand-10` do `dashboard.pen`. Ver §2.7 (sm — **sidebar**; na área logada a logo aparece somente ali), §3.0 (md), §3.1 (md) e §3.6 (PDF, marca branca sobre teal sólido). O header das páginas internas **não exibe logo** (§2.8).
 
 **Variante de variação percentual (subida/descida):**
-- Variação positiva: `text-emerald-600` + `▲` (seta up)
-- Variação negativa: `text-red-600` + `▼` (seta down)
-- Neutro (0%): `text-muted-foreground` + `–`
+- Variação positiva: `text-emerald-700` + `▲` (seta up) — contraste 5.48:1 ✓ (corrigido de `emerald-600` 3.73:1, ver `docs/failures/a11y-audit.md` A-01)
+- Variação negativa: `text-red-600` + `▼` (seta down) — contraste 4.83:1 ✓
+- Neutro (0%): `text-muted-foreground` + `–` (`Minus` icon, `size-3.5`)
+- Sem variação (`variacao === null`): `text-muted-foreground` + `—` (traço eme, **sem ícone**) — usado no 5º card "Estoque Baixo" (§2.2); contraste 4.74:1 ✓
 
 ### 1.2 Tipografia
 
@@ -166,9 +168,10 @@ Todas as sombras seguem Tailwind v4 defaults (offset + blur, sem colored halo �
 | **2xl**  | `2xl:`   | ≥1536px    | Desktop wide    |
 
 **Breakpoints operacionais (do PRD):**
-- Desktop (≥1440px): Sidebar expanded, grid 2-4 colunas
-- Tablet (768–1024px): Sidebar colapsável, grid 2 colunas
-- Mobile (<768px): Sidebar overlay, grid 1 coluna, tabelas com scroll horizontal
+- Desktop (≥1280px): Sidebar expanded, grid 5 colunas (`xl:grid-cols-5`)
+- Tablet landscape (1024–1279px): Sidebar expanded, grid 3 colunas (`lg:grid-cols-3` — 3+2)
+- Tablet (640–1023px): Sidebar overlay (<1024px), grid 2 colunas (`sm:grid-cols-2`)
+- Mobile (<640px): Sidebar overlay, grid 1 coluna, tabelas com scroll horizontal
 
 ---
 
@@ -221,8 +224,14 @@ Usar shadcn/ui `<Card>`.
 - Padding: `p-4` (mobile), `p-6` (desktop)
 - Radius: `rounded-xl`
 - Shadow: `shadow-sm`
-- Grid: 4 colunas (desktop) → 2 colunas (tablet) → 1 coluna (mobile)
+- Grid: 5 colunas (desktop ≥1280px) → 3 colunas (tablet landscape 1024–1279px) → 2 colunas (tablet 640–1023px) → 1 coluna (mobile <640px) — classe única: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6`
 - Variação percentual no canto inferior esquerdo com seta
+
+**5º card — "Estoque Baixo" (v1.5):** mesma estrutura dos irmãos com variação própria:
+- Ícone: `PackageOpen` (`size-5 text-muted-foreground`)
+- Valor: `formatInteger` (sem `R$`) — ex.: `5`
+- Variação: `—` (traço eme, `text-muted-foreground`, **sem ícone**) quando `variacao === null` (ver §1.1)
+- Label: title-case "Estoque Baixo" (padrão dos irmãos; ver N-02 do relatório — código atual usa "Estoque baixo" minúsculo)
 
 **Content Card (tabelas, formulários):**
 
@@ -339,6 +348,18 @@ Usar shadcn/ui `<Badge>` para status.
 
 **Badges de categoria de produto:**
 - Usar `variant="outline"` com `text-xs` — cor neutra (não competir com status)
+
+**Badge "Estoque baixo" (produtos, v1.5):**
+
+| Badge           | Variante (`variant`) | Classes adicionais                        |
+| --------------- | -------------------- | ----------------------------------------- |
+| Estoque baixo   | `outline`            | `border-amber-300 bg-amber-100 text-amber-800` |
+
+- Texto `text-xs font-medium`, pill `h-5` (`rounded-full`), `title` acessível: `"Estoque baixo: até 10 unidades"`
+- Exibido na célula **Estoque** da tabela de produtos quando `isEstoqueBaixo(estoque)` — critério: `estoque <= ESTOQUE_BAIXO_LIMITE` (`ESTOQUE_BAIXO_LIMITE = 10`, `src/lib/estoque.ts`)
+- Visível para **admin E vendedor** (RLS não filtra o badge)
+- Contraste **6.37:1** (amber-800 `#92400E` / amber-100 `#FEF3C7`) — ✓ WCAG AA
+- Tokens no protótipo `dashboard.pen`: `$estbg` (`#FEF3C7` = amber-100), `$estfg` (`#92400E` = amber-800), `$estbd` (`#FCD34D` = amber-300)
 
 ### 2.7 Sidebar (Navegação)
 
@@ -591,11 +612,11 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 │ [Sidebar]  │  Header: Dashboard                        👤 Adm │
 │            ├───────────────────────────────────────────────────┤
 │            │                                                   │
-│            │  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐            │
-│            │  │R$ 45K │ │R$ 1.2M│ │ 128  │ │R$ 387│            │
-│            │  │ Hoje  │ │  Mês  │ │Pedidos│ │T.Méd.│            │
-│            │  │ ▲12%  │ │ ▲8%   │ │ ▲5%   │ │ ▼2%  │            │
-│            │  └──────┘ └──────┘ └──────┘ └──────┘            │
+│            │  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌─────────┐ │
+│            │  │R$ 45K │ │R$ 1.2M│ │ 128  │ │R$ 387│ │    5    │ │
+│            │  │ Hoje  │ │  Mês  │ │Pedidos│ │T.Méd.│ │Est.Baixo│ │
+│            │  │ ▲12%  │ │ ▲8%   │ │ ▲5%   │ │ ▼2%  │ │    —    │ │
+│            │  └──────┘ └──────┘ └──────┘ └──────┘ └─────────┘ │
 │            │                                                   │
 │            │  ┌──────────────────────────────────────────┐     │
 │            │  │ Vendas                    [7d][30d][12m] │     │
@@ -614,7 +635,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 
 | Área                | Especificação                                               |
 | ------------------- | ----------------------------------------------------------- |
-| **Metric Cards**    | Grid `grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6` |
+| **Metric Cards**    | Grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6` — 5 cards: Faturamento Hoje, Faturamento Mês, Pedidos Hoje, Ticket Médio Mês e **Estoque Baixo** (§2.2) |
 | **Sales Chart**     | Card com `p-4 md:p-6`, `h-[300px]` (mobile: `h-[200px]`), `mt-6` |
 | **Period Selector** | `flex gap-1` com `Button variant={isActive ? 'default' : 'outline'} size="sm"` |
 | **Top Tables**      | Grid `grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 mt-6`      |
@@ -645,11 +666,11 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 │            │  Produtos                    [Busca...] [ + Novo ]│
 │            │                                                   │
 │            │  ┌──────────────────────────────────────────┐     │
-│            │  │ Nome   │ Cat.    │ Preço   │ Estoque │    │     │
+│            │  │ Nome   │ Cat.    │ Preço   │ Estoque      │     │
 │            │  │──────────────────────────────────────────│     │
-│            │  │ Prod A │ Limpeza │ R$ 12,90│ 45      │ ✏️🗑️ │
-│            │  │ Prod B │ Higiene │ R$ 8,50 │ 120     │ ✏️🗑️ │
-│            │  │ ...    │ ...     │ ...     │ ...     │    │     │
+│            │  │ Prod A │ Limpeza │ R$ 12,90│ 45           │ ✏️🗑️ │
+│            │  │ Prod B │ Higiene │ R$ 8,50 │ 2 [Est. baixo]│ ✏️🗑️ │
+│            │  │ ...    │ ...     │ ...     │ ...          │    │     │
 │            │  └──────────────────────────────────────────┘     │
 │            │                                                   │
 │            │  < 1 2 3 ... 10 >                                 │
@@ -663,6 +684,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | **Search input**    | `Input placeholder="Buscar por nome..." className="max-w-xs"` |
 | **New button**      | `Button`" + `Plus` icon — "Novo Produto"              |
 | **Table columns**   | Nome, Categoria (badge), Preço (R$), Estoque, Ações    |
+| **Célula Estoque**  | Número (`formatInteger`) + badge "Estoque baixo" (§2.6) em `flex items-center justify-end gap-2`, com `title="Estoque baixo: até 10 unidades"`. Badge exibido quando `isEstoqueBaixo(estoque)` (`estoque <= 10`) — visível para **admin E vendedor** |
 | **Ações**           | `Button variant="ghost" size="icon"` + `Pencil` / `Trash2` |
 | **Edit/New modal**  | `DialogContent sm:max-w-lg` com form: nome, categoria (Select), preço (Input number), estoque (Input number) |
 | **Delete confirm**  | `AlertDialog` — "Tem certeza que deseja excluir [nome]?" — "Cancelar" / "Excluir" (destructive) |
@@ -822,30 +844,42 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 
 ## 4. Responsividade
 
-### Desktop (≥1440px)
+### Desktop (≥1280px)
 
 | Característica         | Especificação                                         |
 | ---------------------- | ----------------------------------------------------- |
 | Sidebar                | Expandida (w-56), sempre visível                      |
-| Metric cards grid      | `grid-cols-4`                                        |
+| Metric cards grid      | `xl:grid-cols-5` (5 cards lado a lado)                |
 | Top tables layout      | `grid-cols-2` lado a lado                            |
 | Chart height           | `h-[350px]`                                          |
 | Tables                 | Sem scroll horizontal (conteúdo cabe)                |
 | Modals                 | Centralizados, width fixo (max-w-lg / max-w-2xl)     |
 
-### Tablet (768–1024px)
+### Tablet Landscape (1024–1279px)
+
+| Característica         | Especificação                                         |
+| ---------------------- | ----------------------------------------------------- |
+| Sidebar                | Expandida (w-56) — colapso em Sheet só abaixo de 1024px (§2.7) |
+| Metric cards grid      | `lg:grid-cols-3` (3+2 — o 5º card fica órfão na 3ª linha, alinhado à esquerda; padrão aceitável, ver N-03 do relatório) |
+| Top tables layout      | `grid-cols-1` empilhadas                             |
+| Chart height           | `h-[300px]`                                          |
+| Tables                 | `overflow-x-auto` com `min-w-[600px]` se necessário  |
+| Modals                 | `sm:max-w-lg` / `sm:max-w-2xl`                       |
+| Filters row            | Wrap em múltiplas linhas se necessário                |
+
+### Tablet (640–1023px)
 
 | Característica         | Especificação                                         |
 | ---------------------- | ----------------------------------------------------- |
 | Sidebar                | Colapsada (Sheet overlay), trigger hamburger no header |
-| Metric cards grid      | `grid-cols-2` (2x2)                                  |
+| Metric cards grid      | `sm:grid-cols-2` (2x2; o 5º card fica órfão na 3ª linha) |
 | Top tables layout      | `grid-cols-1` empilhadas                             |
 | Chart height           | `h-[250px]`                                          |
 | Tables                 | `overflow-x-auto` com `min-w-[600px]` se necessário  |
 | Modals                 | `sm:max-w-lg` (chega perto das bordas laterais)      |
 | Filters row            | Wrap em múltiplas linhas se necessário                |
 
-### Mobile (<768px)
+### Mobile (<640px)
 
 | Característica         | Especificação                                         |
 | ---------------------- | ----------------------------------------------------- |
@@ -853,7 +887,7 @@ Usar `sonner` `<Toaster>` para feedback de operações.
 | Metric cards grid      | `grid-cols-1` (stacked vertical)                      |
 | Top tables layout      | `grid-cols-1` empilhadas                             |
 | Chart height           | `h-[200px]`                                           |
-| Tables                 | `overflow-x-auto` obrigatório, `min-w-[500px]`        |
+| Tables                 | `overflow-x-auto` obrigatório, `min-w-[600px]` (badge "Estoque baixo" não estoura) |
 | Modals                 | Full-width com margem pequena (`max-w-[calc(100%-16px)]`) |
 | Page padding           | `px-4` em vez de `px-6`                               |
 | Header buttons         | Apenas ícones (sem texto)                             |
@@ -1001,6 +1035,7 @@ Todos os ícones usam `lucide-react`. Tamanho padrão: `18px` (`h-[18px] w-[18px
 | **Card — Pedidos**           | `ShoppingCart`        | Ícone de métrica de pedidos                      |
 | **Card — Clientes**          | `Users`               | Ícone de métrica de clientes                     |
 | **Card — Ticket Médio**      | `TrendingUp`          | Ícone de métrica de ticket                       |
+| **Card — Estoque Baixo**     | `PackageOpen`         | Ícone de métrica de estoque baixo (5º card, §2.2) |
 | **Chart — Período**          | `CalendarRange`       | Seletor de período no gráfico                    |
 | **Relatório — Exportar**     | `FileDown`            | Exportar PDF                                     |
 | **Relatório — Gerar**        | `RefreshCw`           | Gerar preview                                    |
@@ -1116,7 +1151,7 @@ src/
 │   │   ├── header.tsx            # Top bar
 │   │   └── user-nav.tsx          # User dropdown (avatar + menu)
 │   ├── dashboard/
-│   │   ├── metric-cards.tsx      # 4 metric cards grid
+│   │   ├── metric-cards.tsx      # 5 metric cards grid
 │   │   ├── sales-chart.tsx       # Line chart (Recharts)
 │   │   ├── period-selector.tsx   # 7d/30d/12m toggle
 │   │   ├── top-products.tsx      # Top 10 products table
@@ -1174,7 +1209,7 @@ DashboardLayout (agrupado em (dashboard))
     └── [Page Content]
 
 DashboardPage
-├── MetricCards (grid 4 → 2 → 1)
+├── MetricCards (grid 5 → 3 → 2 → 1)
 ├── SalesChart (LineChart Recharts)
 │   └── PeriodSelector (7d, 30d, 12m)
 ├── TopProducts (Table)
@@ -1368,8 +1403,8 @@ RelatoriosPage
 ### Metric Cards Skeleton
 
 ```tsx
-<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
-  {Array.from({ length: 4 }).map((_, i) => (
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6">
+  {Array.from({ length: 5 }).map((_, i) => (
     <Card key={i} className="p-6 rounded-xl">
       <div className="space-y-3">
         <Skeleton className="h-4 w-24" />   {/* label */}

@@ -1,5 +1,5 @@
 {
-  "version": "2.14",
+  "version": "2.15",
   "children": [
     {
       "type": "frame",
@@ -363,6 +363,25 @@
                             "kDn4o": {
                               "content": "▼ 2,1%",
                               "fill": "$neg"
+                            }
+                          }
+                        },
+                        {
+                          "type": "ref",
+                          "id": "eBqU7",
+                          "ref": "9k3Ga",
+                          "name": "Metric Estoque Baixo",
+                          "width": "fill_container",
+                          "descendants": {
+                            "Nn8yk": {
+                              "content": "5"
+                            },
+                            "3DAJv": {
+                              "content": "Estoque Baixo"
+                            },
+                            "kDn4o": {
+                              "content": "—",
+                              "fill": "$muted"
                             }
                           }
                         }
@@ -1472,20 +1491,20 @@
                         {
                           "type": "ref",
                           "id": "U78Jv",
-                          "ref": "N7WNt",
+                          "ref": "N7Wq",
                           "name": "Row 1",
                           "descendants": {
-                            "x3Dkm": {
+                            "x3DkQ": {
                               "content": "Detergente Neutro"
                             },
-                            "mipVH": {
+                            "mipVK": {
                               "content": "Limpeza"
                             },
-                            "uPqQR": {
+                            "uPqQU": {
                               "content": "R$ 12,90"
                             },
-                            "6Whwt": {
-                              "content": "45"
+                            "6WhtB": {
+                              "content": "2"
                             }
                           }
                         },
@@ -1500,20 +1519,20 @@
                         {
                           "type": "ref",
                           "id": "Pqqu5",
-                          "ref": "N7WNt",
+                          "ref": "N7Wq",
                           "name": "Row 2",
                           "descendants": {
-                            "x3Dkm": {
+                            "x3DkQ": {
                               "content": "Sabão em Pó"
                             },
-                            "mipVH": {
+                            "mipVK": {
                               "content": "Limpeza"
                             },
-                            "uPqQR": {
+                            "uPqQU": {
                               "content": "R$ 8,50"
                             },
-                            "6Whwt": {
-                              "content": "120"
+                            "6WhtB": {
+                              "content": "10"
                             }
                           }
                         },
@@ -5130,6 +5149,37 @@
     },
     {
       "type": "frame",
+      "id": "esBdg",
+      "name": "Badge Estoque Baixo",
+      "width": 104,
+      "height": 20,
+      "fill": "$estbg",
+      "stroke": "$estbd",
+      "strokeWidth": 1,
+      "layout": "horizontal",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "cornerRadius": 10,
+      "reusable": true,
+      "children": [
+        {
+          "type": "text",
+          "id": "BdgTx",
+          "name": "BadgeText",
+          "content": "Estoque baixo",
+          "fill": "$estfg",
+          "textAlign": "center",
+          "textAlignVertical": "middle",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "500"
+        }
+      ],
+      "x": 1568,
+      "y": 980
+    },
+    {
+      "type": "frame",
       "id": "N7WNt",
       "name": "Row Produto",
       "width": "fill_container",
@@ -5271,6 +5321,159 @@
         }
       ],
       "x": 40,
+      "y": 1020
+    },
+    {
+      "type": "frame",
+      "id": "N7Wq",
+      "name": "Row Produto Estoque Baixo",
+      "width": "fill_container",
+      "height": 44,
+      "fill": "$card",
+      "layout": "horizontal",
+      "padding": [
+        0,
+        24
+      ],
+      "alignItems": "center",
+      "reusable": true,
+      "children": [
+        {
+          "type": "frame",
+          "id": "zXWzV",
+          "name": "CellNome",
+          "width": 220,
+          "layout": "horizontal",
+          "children": [
+            {
+              "type": "text",
+              "id": "x3DkQ",
+              "name": "Nome",
+              "content": "Produto",
+              "fill": "$fg",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "2gcoM",
+          "name": "CellCat",
+          "width": 140,
+          "layout": "horizontal",
+          "children": [
+            {
+              "type": "frame",
+              "id": "tooM9",
+              "name": "CatBadge",
+              "fill": "$grid",
+              "padding": [
+                2,
+                8
+              ],
+              "cornerRadius": 4,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mipVK",
+                  "name": "CatText",
+                  "content": "Categoria",
+                  "fill": "$muted",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VcxLO",
+          "name": "CellPreco",
+          "width": 130,
+          "layout": "horizontal",
+          "children": [
+            {
+              "type": "text",
+              "id": "uPqQU",
+              "name": "Preco",
+              "content": "R$ 0,00",
+              "fill": "$fg",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "xSBdg",
+          "name": "CellEstoque",
+          "width": 110,
+          "layout": "horizontal",
+          "children": [
+            {
+              "type": "text",
+              "id": "6WhtB",
+              "name": "Estoque",
+              "content": "0",
+              "fill": "$fg",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "ref",
+              "id": "bEStk",
+              "ref": "esBdg",
+              "name": "Badge Estoque Baixo"
+            }
+          ],
+          "gap": 8,
+          "justifyContent": "end"
+        },
+        {
+          "type": "frame",
+          "id": "6kNrF",
+          "name": "Spacer",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "WgqXb",
+          "name": "CellAcoes",
+          "width": 90,
+          "layout": "horizontal",
+          "gap": 12,
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "qSSWF",
+              "name": "Edit",
+              "content": "✎",
+              "fill": "$muted",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "NSPmZ",
+              "name": "Del",
+              "content": "🗑",
+              "fill": "$muted",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ],
+      "x": 1568,
       "y": 1020
     },
     {
@@ -7618,6 +7821,18 @@
     "secondaryfg": {
       "type": "color",
       "value": "#134E4A"
+    },
+    "estbg": {
+      "type": "color",
+      "value": "#FEF3C7"
+    },
+    "estfg": {
+      "type": "color",
+      "value": "#92400E"
+    },
+    "estbd": {
+      "type": "color",
+      "value": "#FCD34D"
     }
   },
   "fileToken": "d94d6b0b-360d-46a0-a72f-ce443b724018"
