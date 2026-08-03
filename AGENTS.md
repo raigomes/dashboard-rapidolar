@@ -36,6 +36,6 @@ docs/                # briefing.md, PRD.md, TASKS.md, DESIGN_SYSTEM.md, failures
 
 ## Gotchas
 
-- Dois lockfiles existem (`package-lock.json` + `pnpm-lock.yaml`). Use `npm` — os scripts do package.json usam npm
+- Gerenciador de pacotes: **npm** — único lockfile (`package-lock.json`); `package.json` declara `packageManager: "npm@11.16.0"`. Não usar pnpm
 - `TASKS.md` e `DESIGN_SYSTEM.md` começam vazios — precisam ser preenchidos pelo Owner/Designer antes do Coder agir
 - **Spec Kit**: os comandos `/speckit.*` geram artefatos de planejamento em `specs/` (spec, plan, contracts, quickstart). Esses artefatos são **insumo, não execução**. NÃO use o `tasks.md` gerado pelo Spec Kit — a lista de tarefas é `docs/TASKS.md`, fonte única mantida pelo Owner

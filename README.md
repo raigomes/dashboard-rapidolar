@@ -27,7 +27,7 @@ Pré-requisitos: Node 20+, npm e um projeto Supabase.
 4. `npm run seed` — cria os 2 usuários e 6 meses de histórico de vendas.
 5. `npm run dev` → http://localhost:3000
 
-> Use **npm** (não pnpm) — o projeto tem dois lockfiles e os scripts do `package.json` são configurados para npm.
+> O gerenciador de pacotes é o **npm** — único lockfile (`package-lock.json`); `package.json` declara `"packageManager": "npm@11.16.0"`.
 
 ## Usuários de teste (criados pelo seed)
 
